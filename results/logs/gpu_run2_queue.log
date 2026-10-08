@@ -1,0 +1,43 @@
+[gpu_run2] smoke S_A1_no_char: OK
+[gpu_run2] smoke S_A2_no_norm_flags: OK
+[gpu_run2] smoke S_A3_no_selfattn: OK
+[gpu_run2] smoke S_A4_c2q_only: OK
+[gpu_run2] smoke soft_tau0.7: OK
+[gpu_run2] smoke soft_tau0.85: OK
+[gpu_run2] started S_A1_no_char s1 -> gpu_run2_S_A1_no_char_s1.log
+[gpu_run2] started S_A1_no_char s2 -> gpu_run2_S_A1_no_char_s2.log
+[gpu_run2] started S_A1_no_char s3 -> gpu_run2_S_A1_no_char_s3.log
+[gpu_run2] started S_A2_no_norm_flags s1 -> gpu_run2_S_A2_no_norm_flags_s1.log
+[gpu_run2] finished S_A1_no_char s1 rc=0 (7.6 min)
+[gpu_run2] started S_A2_no_norm_flags s2 -> gpu_run2_S_A2_no_norm_flags_s2.log
+[gpu_run2] finished S_A1_no_char s3 rc=0 (9.9 min)
+[gpu_run2] started S_A2_no_norm_flags s3 -> gpu_run2_S_A2_no_norm_flags_s3.log
+[gpu_run2] finished S_A2_no_norm_flags s1 rc=0 (10.3 min)
+[gpu_run2] started S_A3_no_selfattn s1 -> gpu_run2_S_A3_no_selfattn_s1.log
+[gpu_run2] finished S_A1_no_char s2 rc=0 (10.5 min)
+[gpu_run2] started S_A3_no_selfattn s2 -> gpu_run2_S_A3_no_selfattn_s2.log
+[gpu_run2] finished S_A2_no_norm_flags s2 rc=0 (7.6 min)
+[gpu_run2] started S_A3_no_selfattn s3 -> gpu_run2_S_A3_no_selfattn_s3.log
+[gpu_run2] finished S_A2_no_norm_flags s3 rc=0 (10.3 min)
+[gpu_run2] started S_A4_c2q_only s1 -> gpu_run2_S_A4_c2q_only_s1.log
+[gpu_run2] finished S_A3_no_selfattn s1 rc=0 (10.7 min)
+[gpu_run2] started S_A4_c2q_only s2 -> gpu_run2_S_A4_c2q_only_s2.log
+[gpu_run2] finished S_A3_no_selfattn s2 rc=0 (11.9 min)
+[gpu_run2] started S_A4_c2q_only s3 -> gpu_run2_S_A4_c2q_only_s3.log
+[gpu_run2] finished S_A3_no_selfattn s3 rc=0 (10.8 min)
+[gpu_run2] started soft_tau0.7 s1 -> gpu_run2_soft_tau0.7_s1.log
+[gpu_run2] finished S_A4_c2q_only s1 rc=0 (9.3 min)
+[gpu_run2] started soft_tau0.7 s2 -> gpu_run2_soft_tau0.7_s2.log
+[gpu_run2] finished S_A4_c2q_only s3 rc=0 (7.6 min)
+[gpu_run2] started soft_tau0.7 s3 -> gpu_run2_soft_tau0.7_s3.log
+[gpu_run2] finished S_A4_c2q_only s2 rc=0 (9.8 min)
+[gpu_run2] started soft_tau0.85 s1 -> gpu_run2_soft_tau0.85_s1.log
+[gpu_run2] finished soft_tau0.7 s1 rc=0 (8.1 min)
+[gpu_run2] started soft_tau0.85 s2 -> gpu_run2_soft_tau0.85_s2.log
+[gpu_run2] finished soft_tau0.7 s3 rc=0 (6.5 min)
+[gpu_run2] started soft_tau0.85 s3 -> gpu_run2_soft_tau0.85_s3.log
+[gpu_run2] finished soft_tau0.7 s2 rc=0 (7.3 min)
+[gpu_run2] finished soft_tau0.85 s1 rc=0 (6.4 min)
+[gpu_run2] finished soft_tau0.85 s2 rc=0 (5.5 min)
+[gpu_run2] finished soft_tau0.85 s3 rc=0 (5.1 min)
+[gpu_run2] ALL DONE

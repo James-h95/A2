@@ -271,7 +271,10 @@ def build_vocabs(examples, min_freq=2, char_min_freq=5):
 
 # ----------------------------------------------------------------- encoding
 
-DEFAULT_PREP = dict(use_normaliser=True, max_span_len=15, tau=0.5)
+# tau: an example is trainable if its best silver span has F1 >= tau.
+# soft_tau: minimum F1 for a span to join the soft target set (None = same as tau). Kept separate so the
+# soft-set width can be varied without changing which examples are trained on.
+DEFAULT_PREP = dict(use_normaliser=True, max_span_len=15, tau=0.5, soft_tau=None)
 
 
 def preprocess(rows, prep=None):
@@ -284,7 +287,8 @@ def preprocess(rows, prep=None):
         by = byline_start(r["tweet"], t_tokens)
         t_words = {t["word"] for t in t_tokens}
         q_words = {t["word"] for t in q_tokens}
-        best, best_f1, soft = silver_spans(t_tokens, r["tweet"], r["answers"], prep["max_span_len"], prep["tau"])
+        soft_tau = prep["tau"] if prep.get("soft_tau") is None else prep["soft_tau"]
+        best, best_f1, soft = silver_spans(t_tokens, r["tweet"], r["answers"], prep["max_span_len"], soft_tau)
         out.append(dict(
             r, t_tokens=t_tokens, q_tokens=q_tokens, byline_from=by,
             t_flags=token_flags(t_tokens, q_words, by), q_flags=token_flags(q_tokens, t_words),

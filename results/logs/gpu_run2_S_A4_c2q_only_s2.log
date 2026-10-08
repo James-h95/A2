@@ -1,0 +1,18 @@
+[S_A4_c2q_only-s2-20261008-090430] device=cuda params=4,029,225 train_used=8057/9570 val=1076 vocab=15590 chars=213
+[S_A4_c2q_only-s2-20261008-090430] config={"attn_heads": 4, "batch_size": 32, "biattn_mode": "c2q", "char_dim": 32, "char_filters": 50, "char_widths": [3, 4, 5], "dropout": 0.2, "epochs": 30, "grad_clip": 5.0, "hidden": 128, "lr": 0.0005, "max_span_len": 15, "min_freq": 2, "n_flags": 8, "patience": 4, "soft_spans": false, "soft_tau": null, "tau": 0.5, "use_char_cnn": true, "use_normaliser": true, "use_self_attn": true, "use_token_flags": true, "weight_decay": 0.0, "word_dim": 100, "word_init": "fasttext"}
+[S_A4_c2q_only-s2-20261008-090430] epoch  1 loss=5.0742 time=33.1s val bleu1=27.53 meteor=26.25 rougeL=32.26 em=18.31 f1=32.07 *
+[S_A4_c2q_only-s2-20261008-090430] epoch  2 loss=4.2147 time=31.4s val bleu1=31.16 meteor=28.47 rougeL=36.25 em=21.38 f1=36.23 *
+[S_A4_c2q_only-s2-20261008-090430] epoch  3 loss=3.7510 time=31.3s val bleu1=34.43 meteor=30.45 rougeL=39.23 em=23.14 f1=39.26 *
+[S_A4_c2q_only-s2-20261008-090430] epoch  4 loss=3.4098 time=31.4s val bleu1=35.29 meteor=30.64 rougeL=40.22 em=24.91 f1=40.29 *
+[S_A4_c2q_only-s2-20261008-090430] epoch  5 loss=3.1065 time=31.4s val bleu1=36.59 meteor=32.22 rougeL=41.78 em=25.46 f1=41.84 *
+[S_A4_c2q_only-s2-20261008-090430] epoch  6 loss=2.8079 time=29.8s val bleu1=37.02 meteor=32.40 rougeL=42.59 em=25.28 f1=42.67 *
+[S_A4_c2q_only-s2-20261008-090430] epoch  7 loss=2.5938 time=30.6s val bleu1=36.92 meteor=32.46 rougeL=42.22 em=25.84 f1=42.34
+[S_A4_c2q_only-s2-20261008-090430] epoch  8 loss=2.3784 time=31.6s val bleu1=38.07 meteor=31.98 rougeL=43.31 em=27.42 f1=43.49 *
+[S_A4_c2q_only-s2-20261008-090430] epoch  9 loss=2.2292 time=29.9s val bleu1=36.83 meteor=31.59 rougeL=42.56 em=25.84 f1=42.72
+[S_A4_c2q_only-s2-20261008-090430] epoch 10 loss=2.0476 time=30.2s val bleu1=37.98 meteor=33.06 rougeL=43.40 em=25.93 f1=43.43 *
+[S_A4_c2q_only-s2-20261008-090430] epoch 11 loss=1.8892 time=30.1s val bleu1=37.30 meteor=31.37 rougeL=42.65 em=26.95 f1=42.92
+[S_A4_c2q_only-s2-20261008-090430] epoch 12 loss=1.7627 time=30.9s val bleu1=37.34 meteor=32.34 rougeL=42.61 em=25.46 f1=42.67
+[S_A4_c2q_only-s2-20261008-090430] epoch 13 loss=1.6573 time=27.6s val bleu1=36.95 meteor=31.89 rougeL=42.02 em=25.46 f1=42.08
+[S_A4_c2q_only-s2-20261008-090430] epoch 14 loss=1.5070 time=29.0s val bleu1=36.86 meteor=32.46 rougeL=42.11 em=24.35 f1=42.11
+[S_A4_c2q_only-s2-20261008-090430] early stop at epoch 14 (best epoch 10)
+[S_A4_c2q_only-s2-20261008-090430] best epoch 10: val bleu1=37.98 meteor=33.06 rougeL=43.40 em=25.93 f1=43.43 | total 7.9 min

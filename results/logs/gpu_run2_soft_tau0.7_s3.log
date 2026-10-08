@@ -1,0 +1,14 @@
+[soft_tau0.7-s3-20261008-091323] device=cuda params=4,094,761 train_used=8057/9570 val=1076 vocab=15590 chars=213
+[soft_tau0.7-s3-20261008-091323] config={"attn_heads": 4, "batch_size": 32, "biattn_mode": "both", "char_dim": 32, "char_filters": 50, "char_widths": [3, 4, 5], "dropout": 0.2, "epochs": 30, "grad_clip": 5.0, "hidden": 128, "lr": 0.0005, "max_span_len": 15, "min_freq": 2, "n_flags": 8, "patience": 4, "soft_spans": true, "soft_tau": 0.7, "tau": 0.5, "use_char_cnn": true, "use_normaliser": true, "use_self_attn": true, "use_token_flags": true, "weight_decay": 0.0, "word_dim": 100, "word_init": "fasttext"}
+[soft_tau0.7-s3-20261008-091323] epoch  1 loss=4.7542 time=27.1s val bleu1=27.44 meteor=27.59 rougeL=32.63 em=17.10 f1=32.19 *
+[soft_tau0.7-s3-20261008-091323] epoch  2 loss=4.0471 time=25.6s val bleu1=31.32 meteor=28.74 rougeL=36.81 em=20.91 f1=36.64 *
+[soft_tau0.7-s3-20261008-091323] epoch  3 loss=3.6889 time=24.6s val bleu1=33.37 meteor=29.87 rougeL=38.92 em=22.77 f1=38.85 *
+[soft_tau0.7-s3-20261008-091323] epoch  4 loss=3.3922 time=25.7s val bleu1=35.23 meteor=30.88 rougeL=40.86 em=24.16 f1=40.96 *
+[soft_tau0.7-s3-20261008-091323] epoch  5 loss=3.1806 time=25.6s val bleu1=36.20 meteor=30.82 rougeL=41.43 em=25.65 f1=41.49 *
+[soft_tau0.7-s3-20261008-091323] epoch  6 loss=2.9729 time=24.5s val bleu1=37.91 meteor=32.46 rougeL=43.45 em=26.95 f1=43.54 *
+[soft_tau0.7-s3-20261008-091323] epoch  7 loss=2.8022 time=25.5s val bleu1=37.57 meteor=31.27 rougeL=43.05 em=27.60 f1=43.31
+[soft_tau0.7-s3-20261008-091323] epoch  8 loss=2.6227 time=26.4s val bleu1=37.89 meteor=31.07 rougeL=42.82 em=28.25 f1=43.02
+[soft_tau0.7-s3-20261008-091323] epoch  9 loss=2.5003 time=27.4s val bleu1=37.38 meteor=32.18 rougeL=42.66 em=26.77 f1=42.77
+[soft_tau0.7-s3-20261008-091323] epoch 10 loss=2.3756 time=27.8s val bleu1=38.42 meteor=32.46 rougeL=43.20 em=27.88 f1=43.28
+[soft_tau0.7-s3-20261008-091323] early stop at epoch 10 (best epoch 6)
+[soft_tau0.7-s3-20261008-091323] best epoch 6: val bleu1=37.91 meteor=32.46 rougeL=43.45 em=26.95 f1=43.54 | total 4.8 min

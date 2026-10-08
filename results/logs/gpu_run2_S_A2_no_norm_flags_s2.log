@@ -1,0 +1,14 @@
+[S_A2_no_norm_flags-s2-20261008-085103] device=cuda params=4,491,281 train_used=8057/9570 val=1076 vocab=19800 chars=213
+[S_A2_no_norm_flags-s2-20261008-085103] config={"attn_heads": 4, "batch_size": 32, "biattn_mode": "both", "char_dim": 32, "char_filters": 50, "char_widths": [3, 4, 5], "dropout": 0.2, "epochs": 30, "grad_clip": 5.0, "hidden": 128, "lr": 0.0005, "max_span_len": 15, "min_freq": 2, "n_flags": 8, "patience": 4, "soft_spans": false, "soft_tau": null, "tau": 0.5, "use_char_cnn": true, "use_normaliser": false, "use_self_attn": true, "use_token_flags": false, "weight_decay": 0.0, "word_dim": 100, "word_init": "fasttext"}
+[S_A2_no_norm_flags-s2-20261008-085103] epoch  1 loss=5.3375 time=33.2s val bleu1=19.42 meteor=22.42 rougeL=24.06 em=9.85 f1=23.44 *
+[S_A2_no_norm_flags-s2-20261008-085103] epoch  2 loss=4.6539 time=30.4s val bleu1=21.49 meteor=23.50 rougeL=25.99 em=11.52 f1=25.49 *
+[S_A2_no_norm_flags-s2-20261008-085103] epoch  3 loss=4.2362 time=30.0s val bleu1=22.71 meteor=23.64 rougeL=27.35 em=12.83 f1=26.90 *
+[S_A2_no_norm_flags-s2-20261008-085103] epoch  4 loss=3.8652 time=31.2s val bleu1=24.03 meteor=23.00 rougeL=28.75 em=14.78 f1=28.59 *
+[S_A2_no_norm_flags-s2-20261008-085103] epoch  5 loss=3.4993 time=32.0s val bleu1=26.58 meteor=24.96 rougeL=31.55 em=16.54 f1=31.40 *
+[S_A2_no_norm_flags-s2-20261008-085103] epoch  6 loss=3.2121 time=31.5s val bleu1=27.74 meteor=25.78 rougeL=32.23 em=17.66 f1=32.12 *
+[S_A2_no_norm_flags-s2-20261008-085103] epoch  7 loss=2.9269 time=31.3s val bleu1=27.30 meteor=25.38 rougeL=31.64 em=17.94 f1=31.62
+[S_A2_no_norm_flags-s2-20261008-085103] epoch  8 loss=2.6941 time=31.5s val bleu1=26.86 meteor=23.96 rougeL=31.22 em=17.57 f1=31.26
+[S_A2_no_norm_flags-s2-20261008-085103] epoch  9 loss=2.4342 time=32.1s val bleu1=26.76 meteor=23.84 rougeL=31.48 em=17.75 f1=31.50
+[S_A2_no_norm_flags-s2-20261008-085103] epoch 10 loss=2.2612 time=32.0s val bleu1=27.63 meteor=24.62 rougeL=32.02 em=17.47 f1=32.02
+[S_A2_no_norm_flags-s2-20261008-085103] early stop at epoch 10 (best epoch 6)
+[S_A2_no_norm_flags-s2-20261008-085103] best epoch 6: val bleu1=27.74 meteor=25.78 rougeL=32.23 em=17.66 f1=32.12 | total 5.8 min

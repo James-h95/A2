@@ -29,7 +29,7 @@ except ImportError:
 
 DEFAULT_TRAIN = dict(
     lr=1e-3, batch_size=32, epochs=30, patience=4, grad_clip=5.0, weight_decay=0.0,
-    use_normaliser=True, tau=0.5, soft_spans=True, min_freq=2, word_init="random",
+    use_normaliser=True, tau=0.5, soft_tau=None, soft_spans=True, min_freq=2, word_init="random",
     max_span_len=15,
 )
 CKPT_DIR = Path(os.environ.get("A2_CKPT", RESULTS_DIR.parent / "checkpoints"))
@@ -62,7 +62,8 @@ def prepare_data(cfg, train_rows=None, val_rows=None, limit=None):
         train_rows, val_rows = D.get_splits()
     if limit:
         train_rows, val_rows = train_rows[:limit], val_rows[:limit]
-    prep = dict(use_normaliser=cfg["use_normaliser"], max_span_len=cfg["max_span_len"], tau=cfg["tau"])
+    prep = dict(use_normaliser=cfg["use_normaliser"], max_span_len=cfg["max_span_len"], tau=cfg["tau"],
+                soft_tau=cfg.get("soft_tau"))
     tr, va = D.preprocess(train_rows, prep), D.preprocess(val_rows, prep)
     wv, cv = D.build_vocabs(tr, min_freq=cfg["min_freq"])
     D.encode(tr, wv, cv)
@@ -149,11 +150,11 @@ def train(cfg=None, seed=1, name="main", limit=None, data=None, log=print, save=
                 break
     total = time.time() - t_start
     log(f"[{run_id}] best epoch {best_epoch}: val {fmt(best)} | total {total/60:.1f} min")
-    hist_dir = RESULTS_DIR / "history"
-    hist_dir.mkdir(parents=True, exist_ok=True)
-    (hist_dir / f"{run_id}.json").write_text(json.dumps(dict(cfg=cfg, seed=seed, history=history,
-                                                             best_epoch=best_epoch), indent=1))
-    if save:
+    if save:   # smoke tests (save=False) leave no files behind, so results/ only holds logged runs
+        hist_dir = RESULTS_DIR / "history"
+        hist_dir.mkdir(parents=True, exist_ok=True)
+        (hist_dir / f"{run_id}.json").write_text(json.dumps(dict(cfg=cfg, seed=seed, history=history,
+                                                                 best_epoch=best_epoch), indent=1))
         pred_dir = RESULTS_DIR / "preds"
         pred_dir.mkdir(parents=True, exist_ok=True)
         (pred_dir / f"{run_id}.json").write_text(json.dumps(best_preds))
@@ -185,13 +186,27 @@ def load_checkpoint(path, device=None):
 
 
 def _parse_set(items):
+    """Parse key=json_value overrides. Unknown keys and values whose type doesn't match the default
+    (e.g. a bool flag given a string) are errors, so a typo can never silently change an experiment."""
+    defaults = {**DEFAULT_TRAIN, **_default_model()}
     out = {}
     for it in items or []:
         k, v = it.split("=", 1)
+        if k not in defaults:
+            raise SystemExit(f"--set: unknown config key {k!r}")
         try:
-            out[k] = json.loads(v)
+            val = json.loads(v)
         except json.JSONDecodeError:
-            out[k] = v
+            val = v
+        d = defaults[k]
+        ok = (d is None or val is None or isinstance(val, type(d))
+              or (isinstance(d, float) and isinstance(val, int) and not isinstance(val, bool))
+              or (isinstance(d, tuple) and isinstance(val, list)))
+        if isinstance(d, bool) and not isinstance(val, bool):
+            ok = False
+        if not ok:
+            raise SystemExit(f"--set: {k}={v!r} has type {type(val).__name__}, expected {type(d).__name__}")
+        out[k] = val
     return out
 
 

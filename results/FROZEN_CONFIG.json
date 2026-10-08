@@ -1,20 +1,21 @@
 {
- "_rule": "one-factor sweep (seed 1); variants adopted only if val ROUGE-L > max of 3 base seeds; adopted lr=5e-4 and word_init=fasttext, confirmed with 3 seeds",
+ "_previous": "results/FROZEN_CONFIG_v1.json",
+ "_rule": "one-factor sweep (seed 1); variants adopted only if val ROUGE-L > max of 3 base seeds; adopted lr=5e-4 and word_init=fasttext, confirmed with 3 seeds. v2 (2026-10-08, team decision): soft_spans=False, because the A5 ablation (single silver span) beat the soft-target model on all 3 seeds (val ROUGE-L 44.51\u00b10.11 vs 42.95\u00b10.47); ablations re-run on this base in GPU run 2",
  "_run_ids": [
-  "cand_lr5e-4_ft-s1-20261007-165048",
-  "cand_lr5e-4_ft-s2-20261007-165138",
-  "cand_lr5e-4_ft-s3-20261007-165434"
+  "A5_single_span-s1-20261007-141322",
+  "A5_single_span-s3-20261007-141647",
+  "A5_single_span-s2-20261007-141640"
  ],
  "_seeds": [
   1,
-  2,
-  3
+  3,
+  2
  ],
- "_selected_from": "cand_lr5e-4_ft",
+ "_selected_from": "A5_single_span (Kaggle GPU run 1)",
  "_val_rougeL": [
-  43.1162,
-  41.6049,
-  42.9863
+  44.6186,
+  44.5086,
+  44.3927
  ],
  "attn_heads": 4,
  "batch_size": 32,
@@ -35,7 +36,7 @@
  "min_freq": 2,
  "n_flags": 8,
  "patience": 4,
- "soft_spans": true,
+ "soft_spans": false,
  "tau": 0.5,
  "use_char_cnn": true,
  "use_normaliser": true,

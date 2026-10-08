@@ -165,3 +165,24 @@ def test_decode_respects_band():
     idx, _ = decode(s, e, max_len=2)
     i, j = idx[0].tolist()
     assert i <= j < i + 2
+
+
+def test_soft_tau_narrows_soft_set_but_not_trainable():
+    rows = [dict(row_id=0, qid="a", question="where are the students?", tweet=TWEET,
+                 answers=["independence high school"], answer_field="")]
+    wide = D.preprocess(rows, dict(tau=0.5))[0]
+    narrow = D.preprocess(rows, dict(tau=0.5, soft_tau=0.85))[0]
+    assert wide["trainable"] == narrow["trainable"] and wide["best"] == narrow["best"]
+    assert 1 <= len(narrow["soft"]) < len(wide["soft"])
+    assert all(w > 0 for *_, w in narrow["soft"]) and abs(sum(w for *_, w in narrow["soft"]) - 1) < 1e-9
+    # default soft_tau=None reproduces the original behaviour exactly
+    assert D.preprocess(rows)[0]["soft"] == wide["soft"]
+
+
+def test_set_overrides_are_validated():
+    from src.train import _parse_set
+    assert _parse_set(["soft_spans=false", "soft_tau=0.85", "lr=0.0005", 'biattn_mode="c2q"', "hidden=96"]) == \
+        dict(soft_spans=False, soft_tau=0.85, lr=0.0005, biattn_mode="c2q", hidden=96)
+    for bad in (["soft_spans=true soft_tau=0.85"], ["sof_spans=false"], ["use_char_cnn=0"]):
+        with pytest.raises(SystemExit):
+            _parse_set(bad)

@@ -155,3 +155,22 @@
     - no empty predictions
     - frozen config identical
   - **Stage 5/8 tables use the GPU rows only.** The Mac ablation rows stay in the log as partial or cancelled runs.
+
+## Main model v2 and GPU run 2 prepared (2026-10-08)
+
+- **Team decision:** the main model switches to single silver-span training (`soft_spans=False`). `results/FROZEN_CONFIG.json` is now v2 (the old config is kept as `FROZEN_CONFIG_v1.json`). Evidence: run-1 A5 scored val ROUGE-L 44.51 ± 0.11 vs 42.95 ± 0.47 for the soft-target model, on all 3 seeds. The v2 main model is run 1's `A5_single_span` (same config), so it is not retrained.
+- **New `soft_tau` setting:** `tau` still decides which examples are trainable, and `soft_tau` sets the soft-set width separately, so the width can be varied while keeping the same 8,057 training examples. Soft spans per example (train): 17.1 at τ=0.5, 3.6 at 0.7, 1.3 at 0.85. Share of the soft start target on the best start token: 0.48 → 0.67 → 0.73.
+- **`gpu_runner_run2.ipynb`** (`scripts/make_gpu_notebook.py --run 2`), 18 runs:
+  - A1–A4 re-run on the v2 base, named `S_A*`
+  - the soft-target width experiment at soft_tau 0.7 and 0.85
+  - 3 seeds each; no baselines
+  
+  B2 is unchanged (its soft spans were already off). Dry-run passed locally.
+- **Bug caught:** `--set` silently accepted mistyped overrides (found when zsh passed two settings as one argument). `_parse_set` now rejects unknown keys and mismatched types, with a new test (20 tests pass). All 51 job configs validate. Run 1 wasn't affected: the queue passes each setting separately, and the per-ablation parameter counts confirm it.
+
+## GPU run 2 on Kaggle (2026-10-08) — DONE, merged
+
+- 18 runs, all rc=0, ~45 min. Checks: every run's config matches the intended settings, same validation split, re-scored predictions match the logged numbers exactly, frozen v2 config identical. Merged without overwriting; runs.csv rows tagged `platform=kaggle-gpu-run2`, raw file kept as `results/runs_gpu_kaggle_run2.csv`. `results/RESULTS.md` regenerated for v2.
+- **Ablations on main model v2 (val ROUGE-L 44.51 ± 0.11):** A1 −char-CNN −0.94, A2 −normaliser&flags −11.68, A3 −self-attention −1.99, A4 −Q2C −1.01, A5 wide soft targets −1.56, B2 all off −14.37. **Every ablation's seed range lies entirely below the main model's** (min main 44.39 > max of each ablation), so every component now shows a measurable contribution. On v1, A4 (Q2C) was within noise.
+- **Soft-target width:** single 44.51 > medium (τ .7) 43.70 > wide (τ .5) 42.95 ≈ narrow (τ .85) 42.90 ± 1.13 (one weak seed, 41.60). ROUGE-L is not monotone in width, but **EM rises steadily as the target narrows**: 23.95 → 26.95 → 27.26 → 27.94. That fits the explanation that wide soft targets blur span boundaries. No soft width beats the single span, which confirms the v2 decision.
+- Note: `results_summary.py` and `RESULTS.md` were missing from the working tree because the team committed them on `main` and then branched `optimisation` from the earlier commit. Restored from `main` (unstaged); branches untouched.

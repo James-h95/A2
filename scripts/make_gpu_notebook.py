@@ -1,9 +1,12 @@
-"""Build gpu_runner.ipynb: a self-contained Kaggle/Colab notebook that runs the GPU jobs
-(frozen main model, ablations A1-A5, B2, and baselines B3-B5) and zips the results.
+"""Build a self-contained Kaggle/Colab notebook that runs GPU jobs and zips the results.
 
-  python scripts/make_gpu_notebook.py
+  python scripts/make_gpu_notebook.py --run 1   # gpu_runner.ipynb: frozen v1 model, A1-A5, B2, B3-B5
+  python scripts/make_gpu_notebook.py --run 2   # gpu_runner_run2.ipynb: ablations on the single-span
+                                                #   main model (v2) + soft-target width experiment
 """
+import argparse
 import json
+import re
 from pathlib import Path
 
 import nbformat
@@ -13,9 +16,11 @@ FILES = ["src/__init__.py", "src/baselines/__init__.py", "src/evaluate.py", "src
          "src/model.py", "src/fasttext_init.py", "src/train.py", "src/baselines/b3_extractive_ft.py",
          "src/baselines/b4_t5_ft.py", "src/baselines/b5_llm.py", "scripts/run_queue.py"]
 
-FROZEN = {k: v for k, v in json.loads((ROOT / "results" / "FROZEN_CONFIG.json").read_text()).items()
-          if not k.startswith("_")}
-OVR = {"lr": FROZEN["lr"], "word_init": FROZEN["word_init"]}
+FROZEN_V1 = {k: v for k, v in json.loads((ROOT / "results" / "FROZEN_CONFIG_v1.json").read_text()).items()
+             if not k.startswith("_")}
+FROZEN_V2 = {k: v for k, v in json.loads((ROOT / "results" / "FROZEN_CONFIG.json").read_text()).items()
+             if not k.startswith("_")}
+OVR = {"lr": FROZEN_V1["lr"], "word_init": FROZEN_V1["word_init"]}
 ABL = {
     "cand_lr5e-4_ft": {},
     "A1_no_char": {"use_char_cnn": False},
@@ -27,6 +32,35 @@ ABL = {
                    "use_self_attn": False, "biattn_mode": "c2q", "soft_spans": False},
 }
 MAIN_JOBS = [dict(name=n, seed=s, set={**OVR, **o}) for n, o in ABL.items() for s in (1, 2, 3)]
+
+# Run 2: main model v2 = single silver span (identical to run 1's A5_single_span, which is reused, not rerun).
+# Ablations A1-A4 are re-run on top of it (B2 already has soft_spans off, so it is unchanged), plus the
+# soft-target width experiment: soft targets with a narrower soft set (soft_tau 0.7 / 0.85; tau=0.5 keeps
+# the same 8,057 training examples). The old wide soft set (soft_tau=tau=0.5) is run 1's cand_lr5e-4_ft.
+OVR2 = {"lr": FROZEN_V2["lr"], "word_init": FROZEN_V2["word_init"], "soft_spans": FROZEN_V2["soft_spans"]}
+assert OVR2["soft_spans"] is False
+ABL2 = {
+    "S_A1_no_char": {"use_char_cnn": False},
+    "S_A2_no_norm_flags": {"use_normaliser": False, "use_token_flags": False},
+    "S_A3_no_selfattn": {"use_self_attn": False},
+    "S_A4_c2q_only": {"biattn_mode": "c2q"},
+    "soft_tau0.7": {"soft_spans": True, "soft_tau": 0.7},
+    "soft_tau0.85": {"soft_spans": True, "soft_tau": 0.85},
+}
+RUN2_JOBS = [dict(name=n, seed=s, set={**OVR2, **o}) for n, o in ABL2.items() for s in (1, 2, 3)]
+
+RUNS = {
+    1: dict(out="gpu_runner.ipynb", zip="a2_gpu_results", jobs=MAIN_JOBS, baselines=True,
+            keep=("cand_lr5e-4_ft-", "A3_no_selfattn-", "A5_single_span-", "B2_vanilla-"),
+            what="- the frozen main model (v1, soft targets), 3 seeds\n- ablations A1–A5 and B2, 3 seeds each\n"
+                 "- baselines B3 (BERTweet), B4 (t5-small) and B5 (Qwen2.5-1.5B)", hours="1–1.5 h"),
+    2: dict(out="gpu_runner_run2.ipynb", zip="a2_gpu_results_run2", jobs=RUN2_JOBS, baselines=False,
+            keep=("S_A3_no_selfattn-",),
+            what="- ablations A1–A4 re-run on the **new main model (single silver span)**, 3 seeds each\n"
+                 "- soft-target width experiment: soft targets with soft_tau 0.7 and 0.85, 3 seeds each\n"
+                 "- (the new main model itself, B2 and the pretrained baselines already exist from run 1)",
+            hours="about 45–60 min"),
+}
 STAGE34_JOBS = ([dict(name="main_v1", seed=1, set={})] + [dict(name="sw_base", seed=s, set={}) for s in (2, 3)] +
                 [dict(name=n, seed=1, set=o) for n, o in [("sw_lr5e-4", {"lr": 5e-4}), ("sw_h96", {"hidden": 96}),
                  ("sw_h192", {"hidden": 192}), ("sw_do0.3", {"dropout": 0.3}), ("sw_L10", {"max_span_len": 10}),
@@ -39,29 +73,27 @@ This notebook runs every GPU job for the project and packs the results into **on
 It is only a runner. The submission notebook is built separately from the same code.
 
 **What it runs**
-- the frozen main model, 3 seeds
-- ablations A1–A5 and B2, 3 seeds each
-- baselines B3 (BERTweet), B4 (t5-small) and B5 (Qwen2.5-1.5B)
+@WHAT@
 
-Everything is evaluated on validation only; the test set stays locked. Expected time is about 1–1.5 h on Kaggle's 2×T4.
+Everything is evaluated on validation only; the test set stays locked. Expected time: @HOURS@ on Kaggle's 2×T4.
 
 ### Kaggle (recommended)
-1. kaggle.com → **Create → New Notebook → File → Import Notebook**, then pick `gpu_runner.ipynb`.
+1. kaggle.com → **Create → New Notebook → File → Import Notebook**, then pick `@OUT@`.
 2. Right panel → **Add Input → Upload** a dataset containing `train.csv` and `test.csv` (from the TweetQA folder). Any dataset name is fine.
 3. Right panel → **Settings**: *Accelerator* = **GPU T4 x2**, *Internet* = **On** (needs a phone-verified account).
 4. Click **Save Version → Save & Run All (Commit)**. It runs in the background, so you can close the tab.
-5. When it finishes, open the version → **Output** → download **`a2_gpu_results.zip`**, and send it back (put it in the `A2/` folder).
+5. Wait until the version is marked **complete** (Kaggle can take a while to save outputs after the code finishes). Then open the version → **Output** → download **`@ZIP@.zip`** and send it back.
 
 ### Colab
-1. colab.research.google.com → **File → Upload notebook** → `gpu_runner.ipynb`.
+1. colab.research.google.com → **File → Upload notebook** → `@OUT@`.
 2. **Runtime → Change runtime type → T4 GPU**.
 3. **Runtime → Run all**. When asked, upload `train.csv` and `test.csv`.
 4. Keep the tab open (free Colab can disconnect when idle). The zip downloads automatically at the end.
 """
 
 SETUP = '''# ---------------- settings ----------------
-RUN_MAIN = True        # frozen model + ablations A1-A5 + B2 (21 runs)
-RUN_BASELINES = True   # B3 BERTweet, B4 t5-small, B5 Qwen2.5-1.5B (val)
+RUN_MAIN = True        # the training jobs listed at the top of this notebook
+RUN_BASELINES = @BASELINES@  # B3 BERTweet, B4 t5-small, B5 Qwen2.5-1.5B (val)
 RUN_STAGE34 = False    # also redo the Stage 3/4 sweep on GPU (12 more runs, ~30 min)
 
 import os, sys, subprocess, glob, shutil, json, time
@@ -160,11 +192,11 @@ for (m, split), rs in groups.items():
 
 ZIP = '''# ---------------- pack results + checkpoints into one zip ----------------
 out = Path("/kaggle/working") if ON_KAGGLE else Path("/content") if IN_COLAB else WORK.parent
-zip_base = out / "a2_gpu_results"
+zip_base = out / "@ZIP@"
 import zipfile
-# keep only the checkpoints the analysis and the final test evaluation need (full model, A3, A5, B2);
+# keep only the checkpoints the analysis and the final test evaluation need;
 # every run's logs, per-epoch history and validation predictions are kept
-KEEP_CKPT = ("cand_lr5e-4_ft-", "A3_no_selfattn-", "A5_single_span-", "B2_vanilla-")
+KEEP_CKPT = @KEEP@
 with zipfile.ZipFile(f"{zip_base}.zip", "w", zipfile.ZIP_DEFLATED) as z:
     for p in (WORK / "results").rglob("*"):
         if p.is_file():
@@ -182,31 +214,43 @@ if IN_COLAB:
 '''
 
 
-def build():
-    cells = [nbformat.v4.new_markdown_cell(INTRO), nbformat.v4.new_code_cell(SETUP), nbformat.v4.new_code_cell(DATA),
+def build(run):
+    R = RUNS[run]
+
+    def fill(t):
+        return (t.replace("@WHAT@", R["what"]).replace("@HOURS@", R["hours"]).replace("@OUT@", R["out"])
+                .replace("@ZIP@", R["zip"]).replace("@BASELINES@", str(R["baselines"])).replace("@KEEP@", repr(R["keep"])))
+
+    frozen = FROZEN_V1 if run == 1 else FROZEN_V2
+    cells = [nbformat.v4.new_markdown_cell(fill(INTRO)), nbformat.v4.new_code_cell(fill(SETUP)),
+             nbformat.v4.new_code_cell(DATA),
              nbformat.v4.new_markdown_cell("## Project code (written to files; identical to `A2/src`)")]
     for f in FILES:
         body = (ROOT / f).read_text(encoding="utf-8")
         assert body.strip(), f"{f} is empty: %%writefile needs a body"
         cells.append(nbformat.v4.new_code_cell(f"%%writefile {f}\n{body}"))
-    frozen_json = json.dumps(dict(FROZEN), indent=1, sort_keys=True)
+    frozen_json = json.dumps(dict(frozen), indent=1, sort_keys=True)
     cells.append(nbformat.v4.new_code_cell(
         f"Path('results/FROZEN_CONFIG.json').write_text('''{frozen_json}''')\n"
-        f"MAIN_JOBS = {MAIN_JOBS!r}\nSTAGE34_JOBS = {STAGE34_JOBS!r}\n"
+        f"MAIN_JOBS = {R['jobs']!r}\nSTAGE34_JOBS = {STAGE34_JOBS!r}\n"
         "print(len(MAIN_JOBS), 'main jobs;', len(STAGE34_JOBS), 'optional stage-3/4 jobs')"))
     cells += [nbformat.v4.new_markdown_cell("## Run"), nbformat.v4.new_code_cell(RUN_HELPER),
-              nbformat.v4.new_code_cell(main_cell("MAIN_JOBS", "gpu_main", "RUN_MAIN")),
+              nbformat.v4.new_code_cell(main_cell("MAIN_JOBS", "gpu_main" if run == 1 else f"gpu_run{run}", "RUN_MAIN")),
               nbformat.v4.new_code_cell(main_cell("STAGE34_JOBS", "gpu_stage34", "RUN_STAGE34")),
-              nbformat.v4.new_code_cell(BASELINES), nbformat.v4.new_code_cell(SUMMARY), nbformat.v4.new_code_cell(ZIP)]
+              nbformat.v4.new_code_cell(BASELINES), nbformat.v4.new_code_cell(SUMMARY), nbformat.v4.new_code_cell(fill(ZIP))]
     nb = nbformat.v4.new_notebook()
     nb.cells = cells
     nb.metadata = {"kernelspec": {"name": "python3", "display_name": "Python 3"},
                    "language_info": {"name": "python"}, "accelerator": "GPU",
                    "kaggle": {"accelerator": "nvidiaTeslaT4", "isInternetEnabled": True, "isGpuEnabled": True}}
-    out = ROOT / "gpu_runner.ipynb"
+    for c in cells:
+        assert not re.search(r"@[A-Z]+@", c.source), "unfilled placeholder"
+    out = ROOT / R["out"]
     nbformat.write(nb, out)
     print("wrote", out, len(cells), "cells")
 
 
 if __name__ == "__main__":
-    build()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--run", type=int, default=2, choices=sorted(RUNS))
+    build(ap.parse_args().run)
