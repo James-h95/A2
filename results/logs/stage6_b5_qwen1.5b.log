@@ -1,0 +1,69 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/338 [00:00<03:14,  1.73it/s]
+Loading weights:  40%|███▉      | 135/338 [00:00<00:00, 263.78it/s]
+Loading weights:  62%|██████▏   | 210/338 [00:00<00:00, 263.85it/s]
+Loading weights:  78%|███████▊  | 263/338 [00:01<00:00, 276.16it/s]
+Loading weights:  91%|█████████ | 307/338 [00:01<00:00, 269.34it/s]
+Loading weights: 100%|██████████| 338/338 [00:01<00:00, 241.94it/s]
+B5 Qwen/Qwen2.5-1.5B-Instruct device=cuda eval=1076 shots=[7, 3, 39, 23]
+PROMPT (verbatim, last user turn is the target):
+[
+ {
+  "role": "system",
+  "content": "You answer questions about a tweet. Reply with only the short answer (usually a few words copied from the tweet), with no explanation."
+ },
+ {
+  "role": "user",
+  "content": "Tweet: Andrew Garfield says he's gay because he watches RuPaul's Drag Race. You know, like that kid who thinks he's Asian because he watches Naruto\u2014 Justin Whang \ud83d\udc19 (@HotPikachuSex) July 6, 2017\nQuestion: who say he's gay because he watches rupaul's drag race?"
+ },
+ {
+  "role": "assistant",
+  "content": "andrew garfield"
+ },
+ {
+  "role": "user",
+  "content": "Tweet: Cassini showed us the beauty of Saturn. It revealed the best in us. Now it's up to us to keep exploring. CassiniSaturn (@CassiniSaturn) September 15, 2017\nQuestion: what is up to us to keep doing?"
+ },
+ {
+  "role": "assistant",
+  "content": "exploring"
+ },
+ {
+  "role": "user",
+  "content": "Tweet: 37500 people have been evacuated from #Aleppo so far. The goal is to complete all evacuations until tomorrow.\u2014 Mevl\u00fct \u00c7avu\u015fo\u011flu (@MevlutCavusoglu) December 20, 2016\nQuestion: when was the goal for all evacuations to be completed?"
+ },
+ {
+  "role": "assistant",
+  "content": "tomorrow"
+ },
+ {
+  "role": "user",
+  "content": "Tweet: This is what $29 gets you at the grocery store\u2014what families on SNAP (i.e. food stamps) have to live on for a week. Gwyneth Paltrow (@GwynethPaltrow) April 9, 2015\nQuestion: how much money was spent?"
+ },
+ {
+  "role": "assistant",
+  "content": "29"
+ },
+ {
+  "role": "user",
+  "content": "Tweet: Nicki your video was just you twerking, I see girls doing that at the bar every fri&sat. \ud83d\udc81\ud83c\udffc #TeamTaylor\u2014 ChristinaBeex3 (@Christinabeex3) July 22, 2015\nQuestion: where can you see girls doing that?"
+ }
+]
+  16/1076 (0.0 min)
+  176/1076 (0.3 min)
+  336/1076 (0.5 min)
+  496/1076 (0.8 min)
+  656/1076 (1.0 min)
+  816/1076 (1.2 min)
+  976/1076 (1.5 min)
+  Q: where can you see girls doing that? | gold: ['at the bar'] | pred: at the bar
+  Q: what kind of contract did he have? | gold: ['a non-guaranteed contract'] | pred: non-guaranteed
+  Q: at what age is he suing the obama administration? | gold: ['15 years old'] | pred: 15
+  Q: who will be arriving soon? | gold: ['investigators.'] | pred: investigators
+  Q: who is lin manuel? | gold: ['a twitter user'] | pred: actor
+  Q: what two examples does he mention in contrasting how blacks and whites are treated differently. | gold: ['pumpkinfest and ferguson'] | pred: #pumpkinfest riot; Ferguson
+  Q: what do all the shows have in common? | gold: ["they don't have american hosts"] | pred: american host
+  Q: what is the hashtag for this new game? | gold: ['#barbtruth'] | pred: #BarbTruth
+DONE bleu1=61.30 meteor=49.07 rougeL=66.45 em=49.16 f1=66.91

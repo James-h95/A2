@@ -1,0 +1,27 @@
+[stage4] smoke sw_base: OK
+[stage4] smoke sw_lr5e-4: OK
+[stage4] smoke sw_h96: OK
+[stage4] smoke sw_h192: OK
+[stage4] smoke sw_do0.3: OK
+[stage4] smoke sw_L10: OK
+[stage4] smoke sw_L20: OK
+[stage4] smoke sw_fasttext: OK
+[stage4] started sw_base s2 -> stage4_sw_base_s2.log
+[stage4] started sw_base s3 -> stage4_sw_base_s3.log
+[stage4] finished sw_base s2 rc=0 (3.8 min)
+[stage4] started sw_lr5e-4 s1 -> stage4_sw_lr5e-4_s1.log
+[stage4] finished sw_base s3 rc=0 (4.5 min)
+[stage4] started sw_h96 s1 -> stage4_sw_h96_s1.log
+[stage4] finished sw_lr5e-4 s1 rc=0 (4.3 min)
+[stage4] started sw_h192 s1 -> stage4_sw_h192_s1.log
+[stage4] finished sw_h96 s1 rc=0 (4.9 min)
+[stage4] started sw_do0.3 s1 -> stage4_sw_do0.3_s1.log
+[stage4] finished sw_h192 s1 rc=0 (4.2 min)
+[stage4] started sw_L10 s1 -> stage4_sw_L10_s1.log
+[stage4] finished sw_do0.3 s1 rc=0 (6.3 min)
+[stage4] started sw_L20 s1 -> stage4_sw_L20_s1.log
+[stage4] finished sw_L10 s1 rc=0 (6.8 min)
+[stage4] started sw_fasttext s1 -> stage4_sw_fasttext_s1.log
+[stage4] finished sw_L20 s1 rc=0 (4.6 min)
+[stage4] finished sw_fasttext s1 rc=0 (3.8 min)
+[stage4] ALL DONE

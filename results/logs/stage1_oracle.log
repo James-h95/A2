@@ -1,0 +1,14 @@
+split sizes: train=9570 (4608 tweets) val=1076 (511 tweets)
+oracle train {"use_normaliser": true, "max_span_len": 15, "tau": 0.5}: bleu1=74.48 meteor=58.54 rougeL=78.26 em=64.19 f1=79.17 | span>0: 86.6% | trainable (F1>=tau): 84.2% | soft spans/ex: 17.1
+oracle val   {"use_normaliser": true, "max_span_len": 15, "tau": 0.5}: bleu1=71.76 meteor=55.10 rougeL=75.97 em=60.78 f1=77.00 | span>0: 84.9% | trainable (F1>=tau): 82.2% | soft spans/ex: 15.3
+  (5.7s)
+oracle train {"use_normaliser": true, "max_span_len": 10, "tau": 0.5}: bleu1=74.46 meteor=58.52 rougeL=78.25 em=64.15 f1=79.16 | span>0: 86.6% | trainable (F1>=tau): 84.2% | soft spans/ex: 14.2
+oracle val   {"use_normaliser": true, "max_span_len": 10, "tau": 0.5}: bleu1=71.70 meteor=55.06 rougeL=75.94 em=60.69 f1=76.98 | span>0: 84.9% | trainable (F1>=tau): 82.2% | soft spans/ex: 13.0
+  (3.2s)
+oracle train {"use_normaliser": true, "max_span_len": 20, "tau": 0.5}: bleu1=74.48 meteor=58.55 rougeL=78.27 em=64.19 f1=79.17 | span>0: 86.6% | trainable (F1>=tau): 84.2% | soft spans/ex: 18.2
+oracle val   {"use_normaliser": true, "max_span_len": 20, "tau": 0.5}: bleu1=71.76 meteor=55.10 rougeL=75.97 em=60.78 f1=77.00 | span>0: 84.9% | trainable (F1>=tau): 82.2% | soft spans/ex: 16.3
+  (4.3s)
+oracle train {"use_normaliser": false, "max_span_len": 15, "tau": 0.5}: bleu1=74.48 meteor=58.54 rougeL=78.26 em=64.19 f1=79.17 | span>0: 86.6% | trainable (F1>=tau): 84.2% | soft spans/ex: 17.2
+oracle val   {"use_normaliser": false, "max_span_len": 15, "tau": 0.5}: bleu1=71.76 meteor=55.10 rougeL=75.97 em=60.78 f1=77.00 | span>0: 84.9% | trainable (F1>=tau): 82.2% | soft spans/ex: 15.4
+  (3.7s)
+vocab: words=15590 chars=213 | val tweet-token OOV=7.2% | val examples whose best span has an OOV token=22.0%

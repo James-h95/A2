@@ -1,0 +1,34 @@
+train grid {'max_len': 1, 'length_penalty': 0.0, 'type_bonus': 0.0} rougeL=14.44
+train grid {'max_len': 1, 'length_penalty': 0.0, 'type_bonus': 1.0} rougeL=19.47
+train grid {'max_len': 1, 'length_penalty': 0.1, 'type_bonus': 0.0} rougeL=14.44
+train grid {'max_len': 1, 'length_penalty': 0.1, 'type_bonus': 1.0} rougeL=19.47
+train grid {'max_len': 1, 'length_penalty': 0.3, 'type_bonus': 0.0} rougeL=14.44
+train grid {'max_len': 1, 'length_penalty': 0.3, 'type_bonus': 1.0} rougeL=19.47
+train grid {'max_len': 2, 'length_penalty': 0.0, 'type_bonus': 0.0} rougeL=16.58
+train grid {'max_len': 2, 'length_penalty': 0.0, 'type_bonus': 1.0} rougeL=21.30
+train grid {'max_len': 2, 'length_penalty': 0.1, 'type_bonus': 0.0} rougeL=14.59
+train grid {'max_len': 2, 'length_penalty': 0.1, 'type_bonus': 1.0} rougeL=19.61
+train grid {'max_len': 2, 'length_penalty': 0.3, 'type_bonus': 0.0} rougeL=14.44
+train grid {'max_len': 2, 'length_penalty': 0.3, 'type_bonus': 1.0} rougeL=19.48
+train grid {'max_len': 3, 'length_penalty': 0.0, 'type_bonus': 0.0} rougeL=17.48
+train grid {'max_len': 3, 'length_penalty': 0.0, 'type_bonus': 1.0} rougeL=21.68
+train grid {'max_len': 3, 'length_penalty': 0.1, 'type_bonus': 0.0} rougeL=14.72
+train grid {'max_len': 3, 'length_penalty': 0.1, 'type_bonus': 1.0} rougeL=19.68
+train grid {'max_len': 3, 'length_penalty': 0.3, 'type_bonus': 0.0} rougeL=14.44
+train grid {'max_len': 3, 'length_penalty': 0.3, 'type_bonus': 1.0} rougeL=19.48
+train grid {'max_len': 4, 'length_penalty': 0.0, 'type_bonus': 0.0} rougeL=17.66
+train grid {'max_len': 4, 'length_penalty': 0.0, 'type_bonus': 1.0} rougeL=21.57
+train grid {'max_len': 4, 'length_penalty': 0.1, 'type_bonus': 0.0} rougeL=14.74
+train grid {'max_len': 4, 'length_penalty': 0.1, 'type_bonus': 1.0} rougeL=19.69
+train grid {'max_len': 4, 'length_penalty': 0.3, 'type_bonus': 0.0} rougeL=14.44
+train grid {'max_len': 4, 'length_penalty': 0.3, 'type_bonus': 1.0} rougeL=19.48
+train grid {'max_len': 5, 'length_penalty': 0.0, 'type_bonus': 0.0} rougeL=17.89
+train grid {'max_len': 5, 'length_penalty': 0.0, 'type_bonus': 1.0} rougeL=21.69
+train grid {'max_len': 5, 'length_penalty': 0.1, 'type_bonus': 0.0} rougeL=14.74
+train grid {'max_len': 5, 'length_penalty': 0.1, 'type_bonus': 1.0} rougeL=19.67
+train grid {'max_len': 5, 'length_penalty': 0.3, 'type_bonus': 0.0} rougeL=14.44
+train grid {'max_len': 5, 'length_penalty': 0.3, 'type_bonus': 1.0} rougeL=19.48
+chosen on train: {'max_len': 5, 'length_penalty': 0.0, 'type_bonus': 1.0}
+B1 train: bleu1=17.70 meteor=14.83 rougeL=21.69 em=10.69 f1=21.72
+B1 val: bleu1=17.12 meteor=14.31 rougeL=21.07 em=10.32 f1=21.04
+B1 val without type rules: bleu1=13.14 meteor=13.04 rougeL=17.06 em=5.67 f1=16.76

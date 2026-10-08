@@ -1,0 +1,8 @@
+Exception ignored in: 'gensim.models.word2vec_inner.our_dot_float'
+Exception ignored in: 'gensim.models.word2vec_inner.our_dot_float'
+Exception ignored in: 'gensim.models.word2vec_inner.our_dot_float'
+[A5_single_span-s1-20261007-172424] device=mps params=4,094,761 train_used=8057/9570 val=1076 vocab=15590 chars=213
+[A5_single_span-s1-20261007-172424] config={"attn_heads": 4, "batch_size": 32, "biattn_mode": "both", "char_dim": 32, "char_filters": 50, "char_widths": [3, 4, 5], "dropout": 0.2, "epochs": 30, "grad_clip": 5.0, "hidden": 128, "lr": 0.0005, "max_span_len": 15, "min_freq": 2, "n_flags": 8, "patience": 4, "soft_spans": false, "tau": 0.5, "use_char_cnn": true, "use_normaliser": true, "use_self_attn": true, "use_token_flags": true, "weight_decay": 0.0, "word_dim": 100, "word_init": "fasttext"}
+[A5_single_span-s1-20261007-172424] epoch  1 loss=5.0368 time=27.6s val bleu1=27.49 meteor=28.43 rougeL=32.44 em=16.64 f1=32.12 *
+[A5_single_span-s1-20261007-172424] epoch  2 loss=4.1354 time=19.6s val bleu1=32.58 meteor=30.13 rougeL=37.35 em=22.21 f1=37.27 *
+[A5_single_span-s1-20261007-172424] epoch  3 loss=3.6871 time=23.9s val bleu1=34.08 meteor=29.03 rougeL=38.92 em=25.00 f1=39.10 *

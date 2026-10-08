@@ -1,0 +1,50 @@
+[gpu_main] smoke cand_lr5e-4_ft: OK
+[gpu_main] smoke A1_no_char: OK
+[gpu_main] smoke A2_no_norm_flags: OK
+[gpu_main] smoke A3_no_selfattn: OK
+[gpu_main] smoke A4_c2q_only: OK
+[gpu_main] smoke A5_single_span: OK
+[gpu_main] smoke B2_vanilla: OK
+[gpu_main] started cand_lr5e-4_ft s1 -> gpu_main_cand_lr5e-4_ft_s1.log
+[gpu_main] started cand_lr5e-4_ft s2 -> gpu_main_cand_lr5e-4_ft_s2.log
+[gpu_main] started cand_lr5e-4_ft s3 -> gpu_main_cand_lr5e-4_ft_s3.log
+[gpu_main] started A1_no_char s1 -> gpu_main_A1_no_char_s1.log
+[gpu_main] finished cand_lr5e-4_ft s1 rc=0 (9.0 min)
+[gpu_main] finished cand_lr5e-4_ft s2 rc=0 (9.0 min)
+[gpu_main] started A1_no_char s2 -> gpu_main_A1_no_char_s2.log
+[gpu_main] started A1_no_char s3 -> gpu_main_A1_no_char_s3.log
+[gpu_main] finished cand_lr5e-4_ft s3 rc=0 (10.8 min)
+[gpu_main] started A2_no_norm_flags s1 -> gpu_main_A2_no_norm_flags_s1.log
+[gpu_main] finished A1_no_char s1 rc=0 (15.1 min)
+[gpu_main] started A2_no_norm_flags s2 -> gpu_main_A2_no_norm_flags_s2.log
+[gpu_main] finished A1_no_char s3 rc=0 (10.0 min)
+[gpu_main] started A2_no_norm_flags s3 -> gpu_main_A2_no_norm_flags_s3.log
+[gpu_main] finished A1_no_char s2 rc=0 (10.7 min)
+[gpu_main] started A3_no_selfattn s1 -> gpu_main_A3_no_selfattn_s1.log
+[gpu_main] finished A2_no_norm_flags s1 rc=0 (12.6 min)
+[gpu_main] started A3_no_selfattn s2 -> gpu_main_A3_no_selfattn_s2.log
+[gpu_main] finished A2_no_norm_flags s2 rc=0 (11.0 min)
+[gpu_main] started A3_no_selfattn s3 -> gpu_main_A3_no_selfattn_s3.log
+[gpu_main] finished A2_no_norm_flags s3 rc=0 (9.9 min)
+[gpu_main] started A4_c2q_only s1 -> gpu_main_A4_c2q_only_s1.log
+[gpu_main] finished A3_no_selfattn s1 rc=0 (11.1 min)
+[gpu_main] started A4_c2q_only s2 -> gpu_main_A4_c2q_only_s2.log
+[gpu_main] finished A3_no_selfattn s2 rc=0 (8.4 min)
+[gpu_main] started A4_c2q_only s3 -> gpu_main_A4_c2q_only_s3.log
+[gpu_main] finished A3_no_selfattn s3 rc=0 (10.3 min)
+[gpu_main] started A5_single_span s1 -> gpu_main_A5_single_span_s1.log
+[gpu_main] finished A4_c2q_only s2 rc=0 (8.8 min)
+[gpu_main] started A5_single_span s2 -> gpu_main_A5_single_span_s2.log
+[gpu_main] finished A4_c2q_only s1 rc=0 (10.8 min)
+[gpu_main] started A5_single_span s3 -> gpu_main_A5_single_span_s3.log
+[gpu_main] finished A4_c2q_only s3 rc=0 (11.3 min)
+[gpu_main] started B2_vanilla s1 -> gpu_main_B2_vanilla_s1.log
+[gpu_main] finished A5_single_span s1 rc=0 (7.7 min)
+[gpu_main] started B2_vanilla s2 -> gpu_main_B2_vanilla_s2.log
+[gpu_main] finished A5_single_span s3 rc=0 (9.0 min)
+[gpu_main] started B2_vanilla s3 -> gpu_main_B2_vanilla_s3.log
+[gpu_main] finished A5_single_span s2 rc=0 (9.2 min)
+[gpu_main] finished B2_vanilla s1 rc=0 (10.1 min)
+[gpu_main] finished B2_vanilla s2 rc=0 (9.7 min)
+[gpu_main] finished B2_vanilla s3 rc=0 (8.2 min)
+[gpu_main] ALL DONE

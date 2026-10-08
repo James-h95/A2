@@ -1,0 +1,9 @@
+base seeds ['1', '2', '3']: rougeL [40.1614, 39.6798, 40.7215] -> range [39.68, 40.72] mean 40.19 sd 0.52
+sw_lr5e-4      {"lr": 0.0005}                   rougeL=41.22 f1=41.36 best_ep=best_epoch=9 -> ADOPT
+sw_h96         {"hidden": 96}                   rougeL=40.32 f1=40.46 best_ep=best_epoch=11 -> within range
+sw_h192        {"hidden": 192}                  rougeL=40.32 f1=40.44 best_ep=best_epoch=6 -> within range
+sw_do0.3       {"dropout": 0.3}                 rougeL=40.40 f1=40.61 best_ep=best_epoch=13 -> within range
+sw_L10         {"max_span_len": 10}             rougeL=40.49 f1=40.55 best_ep=best_epoch=16 -> within range
+sw_L20         {"max_span_len": 20}             rougeL=40.12 f1=40.31 best_ep=best_epoch=9 -> within range
+sw_fasttext    {"word_init": "fasttext"}        rougeL=40.96 f1=40.96 best_ep=best_epoch=8 -> ADOPT
+adopted: {'sw_lr5e-4': (41.2159, {'lr': 0.0005}), 'sw_fasttext': (40.9626, {'word_init': 'fasttext'})}

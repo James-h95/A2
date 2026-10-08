@@ -1,0 +1,47 @@
+{
+ "_rule": "one-factor sweep (seed 1); variants adopted only if val ROUGE-L > max of 3 base seeds; adopted lr=5e-4 and word_init=fasttext, confirmed with 3 seeds",
+ "_run_ids": [
+  "cand_lr5e-4_ft-s1-20261007-165048",
+  "cand_lr5e-4_ft-s2-20261007-165138",
+  "cand_lr5e-4_ft-s3-20261007-165434"
+ ],
+ "_seeds": [
+  1,
+  2,
+  3
+ ],
+ "_selected_from": "cand_lr5e-4_ft",
+ "_val_rougeL": [
+  43.1162,
+  41.6049,
+  42.9863
+ ],
+ "attn_heads": 4,
+ "batch_size": 32,
+ "biattn_mode": "both",
+ "char_dim": 32,
+ "char_filters": 50,
+ "char_widths": [
+  3,
+  4,
+  5
+ ],
+ "dropout": 0.2,
+ "epochs": 30,
+ "grad_clip": 5.0,
+ "hidden": 128,
+ "lr": 0.0005,
+ "max_span_len": 15,
+ "min_freq": 2,
+ "n_flags": 8,
+ "patience": 4,
+ "soft_spans": true,
+ "tau": 0.5,
+ "use_char_cnn": true,
+ "use_normaliser": true,
+ "use_self_attn": true,
+ "use_token_flags": true,
+ "weight_decay": 0.0,
+ "word_dim": 100,
+ "word_init": "fasttext"
+}

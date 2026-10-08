@@ -1,0 +1,31 @@
+[stage5] smoke A1_no_char: OK
+[stage5] smoke A2_no_norm_flags: OK
+[stage5] smoke A3_no_selfattn: OK
+[stage5] smoke A4_c2q_only: OK
+[stage5] smoke A5_single_span: OK
+[stage5] smoke B2_vanilla: OK
+[stage5] started A1_no_char s1 -> stage5_A1_no_char_s1.log
+[stage5] started A1_no_char s2 -> stage5_A1_no_char_s2.log
+[stage5] started A1_no_char s3 -> stage5_A1_no_char_s3.log
+[stage5] finished A1_no_char s1 rc=0 (7.2 min)
+[stage5] started A2_no_norm_flags s1 -> stage5_A2_no_norm_flags_s1.log
+[stage5] finished A1_no_char s2 rc=0 (7.5 min)
+[stage5] started A2_no_norm_flags s2 -> stage5_A2_no_norm_flags_s2.log
+[stage5] finished A1_no_char s3 rc=0 (10.3 min)
+[stage5] started A2_no_norm_flags s3 -> stage5_A2_no_norm_flags_s3.log
+[stage5] finished A2_no_norm_flags s2 rc=0 (5.3 min)
+[stage5] started A3_no_selfattn s1 -> stage5_A3_no_selfattn_s1.log
+[stage5] finished A2_no_norm_flags s1 rc=0 (5.7 min)
+[stage5] started A3_no_selfattn s2 -> stage5_A3_no_selfattn_s2.log
+[stage5] finished A2_no_norm_flags s3 rc=0 (6.7 min)
+[stage5] started A3_no_selfattn s3 -> stage5_A3_no_selfattn_s3.log
+[stage5] finished A3_no_selfattn s1 rc=0 (7.1 min)
+[stage5] started A4_c2q_only s1 -> stage5_A4_c2q_only_s1.log
+[stage5] finished A3_no_selfattn s2 rc=0 (7.4 min)
+[stage5] started A4_c2q_only s2 -> stage5_A4_c2q_only_s2.log
+[stage5] finished A3_no_selfattn s3 rc=0 (6.2 min)
+[stage5] started A4_c2q_only s3 -> stage5_A4_c2q_only_s3.log
+[stage5] finished A4_c2q_only s1 rc=0 (4.9 min)
+[stage5] started A5_single_span s1 -> stage5_A5_single_span_s1.log
+[stage5] finished A4_c2q_only s2 rc=0 (5.3 min)
+[stage5] started A5_single_span s2 -> stage5_A5_single_span_s2.log

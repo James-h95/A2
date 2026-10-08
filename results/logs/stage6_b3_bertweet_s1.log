@@ -1,0 +1,22 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 9878.18it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: vinai/bertweet-base
+Key                       | Status     |  | 
+--------------------------+------------+--+-
+lm_head.decoder.weight    | UNEXPECTED |  | 
+lm_head.layer_norm.weight | UNEXPECTED |  | 
+lm_head.bias              | UNEXPECTED |  | 
+lm_head.dense.weight      | UNEXPECTED |  | 
+lm_head.layer_norm.bias   | UNEXPECTED |  | 
+lm_head.dense.bias        | UNEXPECTED |  | 
+lm_head.decoder.bias      | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+B3 vinai/bertweet-base device=cuda train_feats=8057 eval=1076 steps=1512
+B3 epoch 1 loss=3.5909 val bleu1=52.07 meteor=42.68 rougeL=57.56 em=39.78 f1=57.86 (1.9 min)
+B3 epoch 2 loss=1.7810 val bleu1=53.36 meteor=43.26 rougeL=58.75 em=41.91 f1=59.11 (3.7 min)
+B3 epoch 3 loss=1.2723 val bleu1=55.01 meteor=44.59 rougeL=59.98 em=43.12 f1=60.23 (5.6 min)
+DONE bleu1=55.01 meteor=44.59 rougeL=59.98 em=43.12 f1=60.23

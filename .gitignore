@@ -1,0 +1,28 @@
+# Model weights (~790 MB). Retraining costs about 75 min of Kaggle GPU, so don't rely on it: the final checkpoints
+# go to the public Hugging Face repo used by the submission notebook; until then share them via OneDrive.
+checkpoints/
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local GPU-runner work dir and Kaggle/Colab output bundles
+A2_gpu/
+*.zip
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+.claude/settings.local.json

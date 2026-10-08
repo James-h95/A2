@@ -1,0 +1,13 @@
+[stage4b] smoke sw_lr5e-4: OK
+[stage4b] smoke cand_lr5e-4_ft: OK
+[stage4b] started sw_lr5e-4 s2 -> stage4b_sw_lr5e-4_s2.log
+[stage4b] started sw_lr5e-4 s3 -> stage4b_sw_lr5e-4_s3.log
+[stage4b] finished sw_lr5e-4 s2 rc=0 (4.9 min)
+[stage4b] started cand_lr5e-4_ft s1 -> stage4b_cand_lr5e-4_ft_s1.log
+[stage4b] finished sw_lr5e-4 s3 rc=0 (5.8 min)
+[stage4b] started cand_lr5e-4_ft s2 -> stage4b_cand_lr5e-4_ft_s2.log
+[stage4b] finished cand_lr5e-4_ft s1 rc=0 (3.8 min)
+[stage4b] started cand_lr5e-4_ft s3 -> stage4b_cand_lr5e-4_ft_s3.log
+[stage4b] finished cand_lr5e-4_ft s2 rc=0 (3.4 min)
+[stage4b] finished cand_lr5e-4_ft s3 rc=0 (3.5 min)
+[stage4b] ALL DONE

@@ -1,0 +1,11 @@
+[
+ {"name": "sw_base", "seed": 2, "set": {}},
+ {"name": "sw_base", "seed": 3, "set": {}},
+ {"name": "sw_lr5e-4", "seed": 1, "set": {"lr": 0.0005}},
+ {"name": "sw_h96", "seed": 1, "set": {"hidden": 96}},
+ {"name": "sw_h192", "seed": 1, "set": {"hidden": 192}},
+ {"name": "sw_do0.3", "seed": 1, "set": {"dropout": 0.3}},
+ {"name": "sw_L10", "seed": 1, "set": {"max_span_len": 10}},
+ {"name": "sw_L20", "seed": 1, "set": {"max_span_len": 20}},
+ {"name": "sw_fasttext", "seed": 1, "set": {"word_init": "fasttext"}}
+]

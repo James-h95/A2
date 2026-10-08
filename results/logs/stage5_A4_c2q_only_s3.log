@@ -1,0 +1,9 @@
+[A4_c2q_only-s3-20261007-172244] device=mps params=4,029,225 train_used=8057/9570 val=1076 vocab=15590 chars=213
+[A4_c2q_only-s3-20261007-172244] config={"attn_heads": 4, "batch_size": 32, "biattn_mode": "c2q", "char_dim": 32, "char_filters": 50, "char_widths": [3, 4, 5], "dropout": 0.2, "epochs": 30, "grad_clip": 5.0, "hidden": 128, "lr": 0.0005, "max_span_len": 15, "min_freq": 2, "n_flags": 8, "patience": 4, "soft_spans": true, "tau": 0.5, "use_char_cnn": true, "use_normaliser": true, "use_self_attn": true, "use_token_flags": true, "weight_decay": 0.0, "word_dim": 100, "word_init": "fasttext"}
+[A4_c2q_only-s3-20261007-172244] epoch  1 loss=5.8940 time=28.0s val bleu1=19.84 meteor=25.71 rougeL=25.93 em=7.62 f1=25.02 *
+[A4_c2q_only-s3-20261007-172244] epoch  2 loss=5.4276 time=24.1s val bleu1=27.68 meteor=28.47 rougeL=33.50 em=15.52 f1=32.98 *
+[A4_c2q_only-s3-20261007-172244] epoch  3 loss=5.1363 time=21.4s val bleu1=29.00 meteor=28.44 rougeL=35.00 em=15.52 f1=34.66 *
+[A4_c2q_only-s3-20261007-172244] epoch  4 loss=4.8472 time=17.9s val bleu1=33.14 meteor=28.30 rougeL=38.64 em=22.77 f1=38.81 *
+[A4_c2q_only-s3-20261007-172244] epoch  5 loss=4.6669 time=21.9s val bleu1=33.61 meteor=29.21 rougeL=39.06 em=21.47 f1=39.07 *
+[A4_c2q_only-s3-20261007-172244] epoch  6 loss=4.4660 time=17.1s val bleu1=35.15 meteor=30.94 rougeL=40.93 em=23.51 f1=40.96 *
+[A4_c2q_only-s3-20261007-172244] epoch  7 loss=4.3153 time=20.3s val bleu1=34.99 meteor=29.24 rougeL=41.04 em=23.70 f1=41.33 *

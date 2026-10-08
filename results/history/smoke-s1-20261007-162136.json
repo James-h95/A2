@@ -1,0 +1,56 @@
+{
+ "cfg": {
+  "lr": 0.001,
+  "batch_size": 32,
+  "epochs": 2,
+  "patience": 99,
+  "grad_clip": 5.0,
+  "weight_decay": 0.0,
+  "use_normaliser": true,
+  "tau": 0.5,
+  "soft_spans": true,
+  "min_freq": 2,
+  "word_init": "random",
+  "max_span_len": 15,
+  "word_dim": 100,
+  "char_dim": 32,
+  "char_filters": 50,
+  "char_widths": [
+   3,
+   4,
+   5
+  ],
+  "n_flags": 8,
+  "hidden": 128,
+  "dropout": 0.2,
+  "attn_heads": 4,
+  "use_char_cnn": true,
+  "use_token_flags": true,
+  "use_self_attn": true,
+  "biattn_mode": "both"
+ },
+ "seed": 1,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 6.567947339155003,
+   "epoch_time": 7.699059009552002,
+   "bleu1": 10.988058134390126,
+   "meteor": 19.23569263642969,
+   "rougeL": 16.633923006643325,
+   "em": 0.5,
+   "f1": 15.381530805795508
+  },
+  {
+   "epoch": 2,
+   "train_loss": 6.137771437981885,
+   "epoch_time": 1.5974252223968506,
+   "bleu1": 10.818075551778485,
+   "meteor": 21.793938548033132,
+   "rougeL": 17.39820959446591,
+   "em": 0.0,
+   "f1": 15.967156291420997
+  }
+ ],
+ "best_epoch": 2
+}

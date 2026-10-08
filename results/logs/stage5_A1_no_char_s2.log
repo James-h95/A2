@@ -1,0 +1,21 @@
+Exception ignored in: 'gensim.models.word2vec_inner.our_dot_float'
+Exception ignored in: 'gensim.models.word2vec_inner.our_dot_float'
+Exception ignored in: 'gensim.models.word2vec_inner.our_dot_float'
+Exception ignored in: 'gensim.models.word2vec_inner.our_dot_float'
+Exception ignored in: 'gensim.models.word2vec_inner.our_dot_float'
+[A1_no_char-s2-20261007-165939] device=mps params=3,694,795 train_used=8057/9570 val=1076 vocab=15590 chars=213
+[A1_no_char-s2-20261007-165939] config={"attn_heads": 4, "batch_size": 32, "biattn_mode": "both", "char_dim": 32, "char_filters": 50, "char_widths": [3, 4, 5], "dropout": 0.2, "epochs": 30, "grad_clip": 5.0, "hidden": 128, "lr": 0.0005, "max_span_len": 15, "min_freq": 2, "n_flags": 8, "patience": 4, "soft_spans": true, "tau": 0.5, "use_char_cnn": false, "use_normaliser": true, "use_self_attn": true, "use_token_flags": true, "weight_decay": 0.0, "word_dim": 100, "word_init": "fasttext"}
+[A1_no_char-s2-20261007-165939] epoch  1 loss=5.9015 time=46.5s val bleu1=23.79 meteor=27.18 rougeL=29.74 em=11.43 f1=29.01 *
+[A1_no_char-s2-20261007-165939] epoch  2 loss=5.3241 time=39.3s val bleu1=28.35 meteor=28.66 rougeL=34.82 em=14.68 f1=34.45 *
+[A1_no_char-s2-20261007-165939] epoch  3 loss=5.0295 time=28.9s val bleu1=32.71 meteor=30.52 rougeL=38.63 em=19.89 f1=38.28 *
+[A1_no_char-s2-20261007-165939] epoch  4 loss=4.8463 time=48.5s val bleu1=34.66 meteor=30.55 rougeL=40.34 em=23.42 f1=40.30 *
+[A1_no_char-s2-20261007-165939] epoch  5 loss=4.6755 time=35.3s val bleu1=35.60 meteor=31.22 rougeL=41.50 em=23.42 f1=41.48 *
+[A1_no_char-s2-20261007-165939] epoch  6 loss=4.5098 time=21.4s val bleu1=35.56 meteor=32.13 rougeL=41.35 em=23.05 f1=41.23
+[A1_no_char-s2-20261007-165939] epoch  7 loss=4.3805 time=27.3s val bleu1=34.87 meteor=32.72 rougeL=41.36 em=19.70 f1=41.00
+[A1_no_char-s2-20261007-165939] epoch  8 loss=4.2617 time=67.7s val bleu1=36.34 meteor=31.75 rougeL=42.33 em=23.51 f1=42.36 *
+[A1_no_char-s2-20261007-165939] epoch  9 loss=4.1544 time=25.4s val bleu1=35.90 meteor=31.15 rougeL=41.77 em=23.61 f1=42.00
+[A1_no_char-s2-20261007-165939] epoch 10 loss=4.0735 time=25.4s val bleu1=36.68 meteor=31.10 rougeL=42.33 em=24.91 f1=42.47
+[A1_no_char-s2-20261007-165939] epoch 11 loss=3.9587 time=18.2s val bleu1=34.61 meteor=29.15 rougeL=40.30 em=23.51 f1=40.53
+[A1_no_char-s2-20261007-165939] epoch 12 loss=3.8959 time=15.6s val bleu1=36.06 meteor=32.41 rougeL=42.18 em=22.58 f1=42.15
+[A1_no_char-s2-20261007-165939] early stop at epoch 12 (best epoch 8)
+[A1_no_char-s2-20261007-165939] best epoch 8: val bleu1=36.34 meteor=31.75 rougeL=42.33 em=23.51 f1=42.36 | total 7.0 min

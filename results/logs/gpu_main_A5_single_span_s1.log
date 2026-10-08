@@ -1,0 +1,14 @@
+[A5_single_span-s1-20261007-141322] device=cuda params=4,094,761 train_used=8057/9570 val=1076 vocab=15590 chars=213
+[A5_single_span-s1-20261007-141322] config={"attn_heads": 4, "batch_size": 32, "biattn_mode": "both", "char_dim": 32, "char_filters": 50, "char_widths": [3, 4, 5], "dropout": 0.2, "epochs": 30, "grad_clip": 5.0, "hidden": 128, "lr": 0.0005, "max_span_len": 15, "min_freq": 2, "n_flags": 8, "patience": 4, "soft_spans": false, "tau": 0.5, "use_char_cnn": true, "use_normaliser": true, "use_self_attn": true, "use_token_flags": true, "weight_decay": 0.0, "word_dim": 100, "word_init": "fasttext"}
+[A5_single_span-s1-20261007-141322] epoch  1 loss=5.0503 time=34.8s val bleu1=27.20 meteor=26.90 rougeL=32.02 em=17.10 f1=31.76 *
+[A5_single_span-s1-20261007-141322] epoch  2 loss=4.1646 time=32.7s val bleu1=31.42 meteor=30.44 rougeL=36.92 em=19.89 f1=36.62 *
+[A5_single_span-s1-20261007-141322] epoch  3 loss=3.7201 time=31.5s val bleu1=35.23 meteor=30.47 rougeL=40.70 em=25.56 f1=40.87 *
+[A5_single_span-s1-20261007-141322] epoch  4 loss=3.3405 time=32.5s val bleu1=36.88 meteor=32.86 rougeL=42.15 em=25.65 f1=42.19 *
+[A5_single_span-s1-20261007-141322] epoch  5 loss=3.0347 time=32.6s val bleu1=36.99 meteor=31.77 rougeL=42.30 em=26.39 f1=42.52 *
+[A5_single_span-s1-20261007-141322] epoch  6 loss=2.7567 time=33.3s val bleu1=39.13 meteor=34.12 rougeL=44.62 em=27.88 f1=44.66 *
+[A5_single_span-s1-20261007-141322] epoch  7 loss=2.5239 time=31.8s val bleu1=37.62 meteor=33.07 rougeL=42.96 em=26.21 f1=43.04
+[A5_single_span-s1-20261007-141322] epoch  8 loss=2.3238 time=32.9s val bleu1=38.44 meteor=33.10 rougeL=43.82 em=26.67 f1=43.94
+[A5_single_span-s1-20261007-141322] epoch  9 loss=2.1538 time=30.4s val bleu1=38.00 meteor=32.60 rougeL=43.02 em=27.04 f1=43.14
+[A5_single_span-s1-20261007-141322] epoch 10 loss=1.9706 time=30.8s val bleu1=38.39 meteor=33.19 rougeL=43.50 em=26.77 f1=43.55
+[A5_single_span-s1-20261007-141322] early stop at epoch 10 (best epoch 6)
+[A5_single_span-s1-20261007-141322] best epoch 6: val bleu1=39.13 meteor=34.12 rougeL=44.62 em=27.88 f1=44.66 | total 6.0 min

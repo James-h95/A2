@@ -1,0 +1,14 @@
+[sw_h192-s1-20261007-163021] device=mps params=6,690,473 train_used=8057/9570 val=1076 vocab=15590 chars=213
+[sw_h192-s1-20261007-163021] config={"attn_heads": 4, "batch_size": 32, "biattn_mode": "both", "char_dim": 32, "char_filters": 50, "char_widths": [3, 4, 5], "dropout": 0.2, "epochs": 30, "grad_clip": 5.0, "hidden": 192, "lr": 0.001, "max_span_len": 15, "min_freq": 2, "n_flags": 8, "patience": 4, "soft_spans": true, "tau": 0.5, "use_char_cnn": true, "use_normaliser": true, "use_self_attn": true, "use_token_flags": true, "weight_decay": 0.0, "word_dim": 100, "word_init": "random"}
+[sw_h192-s1-20261007-163021] epoch  1 loss=5.8783 time=26.6s val bleu1=21.45 meteor=25.21 rougeL=26.98 em=10.41 f1=26.26 *
+[sw_h192-s1-20261007-163021] epoch  2 loss=5.4684 time=21.5s val bleu1=27.16 meteor=27.90 rougeL=33.27 em=14.59 f1=32.74 *
+[sw_h192-s1-20261007-163021] epoch  3 loss=5.1852 time=21.4s val bleu1=29.06 meteor=28.42 rougeL=35.18 em=15.52 f1=34.76 *
+[sw_h192-s1-20261007-163021] epoch  4 loss=4.9778 time=20.2s val bleu1=31.44 meteor=29.56 rougeL=37.66 em=18.77 f1=37.43 *
+[sw_h192-s1-20261007-163021] epoch  5 loss=4.8082 time=22.0s val bleu1=32.88 meteor=28.34 rougeL=39.01 em=22.30 f1=39.11 *
+[sw_h192-s1-20261007-163021] epoch  6 loss=4.6160 time=22.8s val bleu1=34.19 meteor=29.96 rougeL=40.32 em=22.03 f1=40.44 *
+[sw_h192-s1-20261007-163021] epoch  7 loss=4.4445 time=23.0s val bleu1=33.50 meteor=28.87 rougeL=39.62 em=22.03 f1=39.79
+[sw_h192-s1-20261007-163021] epoch  8 loss=4.2649 time=22.7s val bleu1=33.68 meteor=30.20 rougeL=39.89 em=20.72 f1=39.83
+[sw_h192-s1-20261007-163021] epoch  9 loss=4.1542 time=23.0s val bleu1=33.41 meteor=28.77 rougeL=39.37 em=21.65 f1=39.52
+[sw_h192-s1-20261007-163021] epoch 10 loss=4.0084 time=23.0s val bleu1=34.06 meteor=29.63 rougeL=39.93 em=22.40 f1=40.00
+[sw_h192-s1-20261007-163021] early stop at epoch 10 (best epoch 6)
+[sw_h192-s1-20261007-163021] best epoch 6: val bleu1=34.19 meteor=29.96 rougeL=40.32 em=22.03 f1=40.44 | total 4.0 min

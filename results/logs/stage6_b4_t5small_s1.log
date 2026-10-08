@@ -1,0 +1,11 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Loading weights:   0%|          | 0/131 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 131/131 [00:00<00:00, 2542.21it/s]
+B4 t5-small device=cuda train=9570 eval=1076 steps=2995
+B4 epoch 1 loss=1.7194 val bleu1=50.50 meteor=41.53 rougeL=54.86 em=36.25 f1=55.13 (1.4 min)
+B4 epoch 2 loss=1.3419 val bleu1=52.27 meteor=43.40 rougeL=56.62 em=37.27 f1=56.81 (2.6 min)
+B4 epoch 3 loss=1.1482 val bleu1=52.69 meteor=43.60 rougeL=56.85 em=38.38 f1=57.07 (3.9 min)
+B4 epoch 4 loss=1.0147 val bleu1=53.73 meteor=44.20 rougeL=57.99 em=38.85 f1=58.19 (5.2 min)
+B4 epoch 5 loss=0.9386 val bleu1=52.64 meteor=43.65 rougeL=56.93 em=38.01 f1=57.06 (6.5 min)
+DONE bleu1=52.64 meteor=43.65 rougeL=56.93 em=38.01 f1=57.06
