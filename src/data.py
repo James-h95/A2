@@ -355,6 +355,7 @@ def collate(batch):
     return dict(t_words=tw, t_chars=tc, t_flags=tf, t_mask=tm,
                 q_words=qw, q_chars=qc, q_flags=qf, q_mask=qm,
                 y_start=y_start, y_end=y_end, soft_start=soft_start, soft_end=soft_end,
+                best_f1=torch.tensor([ex["best_f1"] for ex in batch], dtype=torch.float),
                 meta=batch)
 
 

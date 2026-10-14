@@ -19,18 +19,20 @@ import torch
 try:
     from . import data as D
     from .evaluate import evaluate, fmt
-    from .model import TweetBiDAF, decode, span_loss
+    from .model import TweetBiDAF, decode, decode_joint, span_loss
     from .runlog import RESULTS_DIR, log_run
 except ImportError:
     import data as D
     from evaluate import evaluate, fmt
-    from model import TweetBiDAF, decode, span_loss
+    from model import TweetBiDAF, decode, decode_joint, span_loss
     from runlog import RESULTS_DIR, log_run
 
 DEFAULT_TRAIN = dict(
     lr=1e-3, batch_size=32, epochs=30, patience=4, grad_clip=5.0, weight_decay=0.0,
     use_normaliser=True, tau=0.5, soft_tau=None, soft_spans=True, min_freq=2, word_init="random",
     max_span_len=15,
+    use_quality_weight=False, use_joint_span_loss=False, joint_span_weight=0.5,
+    use_hard_negative=False, hard_negative_weight=0.2, hard_negative_margin=1.0,
 )
 CKPT_DIR = Path(os.environ.get("A2_CKPT", RESULTS_DIR.parent / "checkpoints"))
 
@@ -78,7 +80,8 @@ def predict(model, examples, device, batch_size=64, max_span_len=15):
     for batch in D.make_loader(examples, batch_size=batch_size):
         meta = batch["meta"]
         out = model(to_device(batch, device))
-        idx, _ = decode(out["start_logits"], out["end_logits"], max_span_len)
+        idx, _ = (decode_joint(out["span_logits"]) if out.get("span_logits") is not None
+                  else decode(out["start_logits"], out["end_logits"], max_span_len))
         for ex, (i, j) in zip(meta, idx.tolist()):
             spans.append((i, j))
             preds.append(D.span_text(ex, i, j))
@@ -121,7 +124,7 @@ def train(cfg=None, seed=1, name="main", limit=None, data=None, log=print, save=
         t0, tot, n = time.time(), 0.0, 0
         for batch in loader:
             batch = to_device(batch, device)
-            loss = span_loss(model(batch), batch, soft=cfg["soft_spans"])
+            loss = span_loss(model(batch), batch, soft=cfg["soft_spans"], cfg=cfg)
             opt.zero_grad()
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), cfg["grad_clip"])

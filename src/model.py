@@ -6,7 +6,7 @@
   3. Trilinear similarity S_ij = w^T [h_i; u_j; h_i ∘ u_j]
      C2Q = softmax_j(S) U,  Q2C = softmax_i(max_j S) H
      G = [h; c2q; h ∘ c2q; h ∘ q2c]                        (A4: biattn_mode "c2q" drops Q2C)
-  4. Gated multi-head self-attention over the projected G,
+  4. Configurable multi-head self-attention over the projected G,
      residual + LayerNorm                                   (A3: use_self_attn)
   5. 2-layer modelling BiLSTM, start head, 1 more BiLSTM layer, end head,
      padding masks, best (i, j) with i <= j < i + L
@@ -26,8 +26,10 @@ NEG = -1e30
 DEFAULT_MODEL = dict(
     word_dim=100, char_dim=32, char_filters=50, char_widths=(3, 4, 5), n_flags=8,
     hidden=128, dropout=0.2, attn_heads=4, max_span_len=15,
-    use_char_cnn=True, use_token_flags=True, use_self_attn=True, biattn_mode="both",
+    use_char_cnn=True, use_token_flags=True, use_self_attn=True,
+    self_attn_mode="gated", biattn_mode="both",
     condition_end_on_start=False,
+    use_joint_span_scorer=False, span_scorer_dim=64,
 )
 
 
@@ -99,6 +101,21 @@ class BiLSTM(nn.Module):
         return x
 
 
+class ResidualSelfAttention(nn.Module):
+    """Standard multi-head self-attention with dropout, residual, and LayerNorm."""
+
+    def __init__(self, dim, heads, dropout):
+        super().__init__()
+        self.mha = nn.MultiheadAttention(dim, heads, dropout=dropout, batch_first=True)
+        self.norm = nn.LayerNorm(dim)
+        self.drop = nn.Dropout(dropout)
+
+    def forward(self, x, mask, question=None, question_mask=None):
+        attended, w = self.mha(x, x, x, key_padding_mask=~mask,
+                               need_weights=True, average_attn_weights=True)
+        return self.norm(x + self.drop(attended)), w
+
+
 class GatedSelfAttention(nn.Module):
     """Multi-head self-attention, then a sigmoid gate on [x; attended], then residual + LayerNorm."""
 
@@ -109,8 +126,36 @@ class GatedSelfAttention(nn.Module):
         self.norm = nn.LayerNorm(dim)
         self.drop = nn.Dropout(dropout)
 
-    def forward(self, x, mask):
+    def forward(self, x, mask, question=None, question_mask=None):
         attended, w = self.mha(x, x, x, key_padding_mask=~mask,
+                               need_weights=True, average_attn_weights=True)
+        g = torch.sigmoid(self.gate(torch.cat([x, attended], -1)))
+        return self.norm(x + self.drop(g * attended)), w
+
+
+class QuestionConditionedSelfAttention(nn.Module):
+    """Gated self-attention whose queries include a masked question summary.
+
+    The tweet remains the key/value sequence.  Adding a learned projection of
+    the question to every tweet query biases attention toward tweet tokens that
+    are relevant to that question, while retaining the current gated residual.
+    """
+
+    def __init__(self, dim, heads, dropout):
+        super().__init__()
+        self.question_proj = nn.Linear(dim, dim)
+        self.mha = nn.MultiheadAttention(dim, heads, dropout=dropout, batch_first=True)
+        self.gate = nn.Linear(2 * dim, dim)
+        self.norm = nn.LayerNorm(dim)
+        self.drop = nn.Dropout(dropout)
+
+    def forward(self, x, mask, question=None, question_mask=None):
+        if question is None or question_mask is None:
+            raise ValueError("question-conditioned attention requires question states and mask")
+        weights = question_mask.unsqueeze(-1).to(question.dtype)
+        summary = (question * weights).sum(1) / weights.sum(1).clamp_min(1.0)
+        query = x + self.question_proj(summary).unsqueeze(1)
+        attended, w = self.mha(query, x, x, key_padding_mask=~mask,
                                need_weights=True, average_attn_weights=True)
         g = torch.sigmoid(self.gate(torch.cat([x, attended], -1)))
         return self.norm(x + self.drop(g * attended)), w
@@ -137,7 +182,14 @@ class TweetBiDAF(nn.Module):
         g_dim = 8 * H if cfg["biattn_mode"] == "both" else 6 * H
         self.g_proj = nn.Linear(g_dim, 2 * H)
         if cfg["use_self_attn"]:
-            self.self_attn = GatedSelfAttention(2 * H, cfg["attn_heads"], p)
+            modes = {
+                "residual": ResidualSelfAttention,
+                "gated": GatedSelfAttention,
+                "question_gated": QuestionConditionedSelfAttention,
+            }
+            if cfg["self_attn_mode"] not in modes:
+                raise ValueError(f"unknown self_attn_mode: {cfg['self_attn_mode']!r}")
+            self.self_attn = modes[cfg["self_attn_mode"]](2 * H, cfg["attn_heads"], p)
         self.model1 = BiLSTM(2 * H, H, layers=2, dropout=p)
         self.model2 = BiLSTM(2 * H, H)
         self.start_head = nn.Linear(4 * H, 1)
@@ -146,6 +198,10 @@ class TweetBiDAF(nn.Module):
         # is scored jointly with that summary and their elementwise interaction.
         end_dim = 8 * H if cfg["condition_end_on_start"] else 4 * H
         self.end_head = nn.Linear(end_dim, 1)
+        if cfg["use_joint_span_scorer"]:
+            self.span_start = nn.Linear(2 * H, cfg["span_scorer_dim"], bias=False)
+            self.span_end = nn.Linear(2 * H, cfg["span_scorer_dim"], bias=False)
+            self.span_length_bias = nn.Embedding(cfg["max_span_len"], 1)
 
     # ---------------------------------------------------------------- layers
     def embed(self, words, chars, flags):
@@ -182,7 +238,7 @@ class TweetBiDAF(nn.Module):
 
         sa = None
         if self.cfg["use_self_attn"]:
-            x, sa = self.self_attn(x, tm)
+            x, sa = self.self_attn(x, tm, u, qm)
 
         m1 = self.drop(self.model1(x, tm))
         m2 = self.drop(self.model2(m1, tm))
@@ -195,7 +251,19 @@ class TweetBiDAF(nn.Module):
             start_prob = None
             end_features = torch.cat([x, m2], -1)
         end = self.end_head(end_features).squeeze(-1).masked_fill(~tm, NEG)
-        out = dict(start_logits=start, end_logits=end)
+        span_logits = None
+        if self.cfg["use_joint_span_scorer"]:
+            ps = self.span_start(m1)
+            pe = self.span_end(m2)
+            pair = torch.einsum("bih,bjh->bij", ps, pe) / (ps.size(-1) ** 0.5)
+            T = start.size(1)
+            idx = torch.arange(T, device=start.device)
+            length = idx.unsqueeze(0) - idx.unsqueeze(1)
+            valid = ((length >= 0) & (length < self.cfg["max_span_len"]))
+            valid = valid.unsqueeze(0) & tm.unsqueeze(2) & tm.unsqueeze(1)
+            length_bias = self.span_length_bias(length.clamp(0, self.cfg["max_span_len"] - 1)).squeeze(-1)
+            span_logits = (start.unsqueeze(2) + end.unsqueeze(1) + pair + length_bias).masked_fill(~valid, NEG)
+        out = dict(start_logits=start, end_logits=end, span_logits=span_logits)
         if return_attn:
             out.update(S=S, c2q=a, q2c=b, self_attn=sa,
                        start_prob_for_end=start_prob)
@@ -204,13 +272,31 @@ class TweetBiDAF(nn.Module):
 
 # ------------------------------------------------------------------ loss / decode
 
-def span_loss(out, batch, soft=True):
+def span_loss(out, batch, soft=True, cfg=None):
+    cfg = cfg or {}
     ls = F.log_softmax(out["start_logits"], -1)
     le = F.log_softmax(out["end_logits"], -1)
     if soft:
-        # soft cross-entropy against the marginal start/end distributions of the soft silver set
-        return -(batch["soft_start"] * ls).sum(-1).mean() - (batch["soft_end"] * le).sum(-1).mean()
-    return F.nll_loss(ls, batch["y_start"]) + F.nll_loss(le, batch["y_end"])
+        per_example = -(batch["soft_start"] * ls).sum(-1) - (batch["soft_end"] * le).sum(-1)
+    else:
+        per_example = F.nll_loss(ls, batch["y_start"], reduction="none") + F.nll_loss(le, batch["y_end"], reduction="none")
+    weights = batch["best_f1"] if cfg.get("use_quality_weight", False) else torch.ones_like(per_example)
+    loss = (per_example * weights).sum() / weights.sum().clamp_min(1e-8)
+
+    if out.get("span_logits") is not None and cfg.get("use_joint_span_loss", False):
+        B, T, _ = out["span_logits"].shape
+        flat = out["span_logits"].reshape(B, -1)
+        gold_idx = batch["y_start"] * T + batch["y_end"]
+        joint = F.cross_entropy(flat, gold_idx, reduction="none")
+        loss = loss + cfg.get("joint_span_weight", 0.5) * (joint * weights).sum() / weights.sum().clamp_min(1e-8)
+        if cfg.get("use_hard_negative", False):
+            gold_score = flat.gather(1, gold_idx.unsqueeze(1)).squeeze(1)
+            negatives = flat.clone()
+            negatives.scatter_(1, gold_idx.unsqueeze(1), NEG)
+            hardest = negatives.max(1).values
+            margin = F.relu(cfg.get("hard_negative_margin", 1.0) - gold_score + hardest)
+            loss = loss + cfg.get("hard_negative_weight", 0.2) * (margin * weights).sum() / weights.sum().clamp_min(1e-8)
+    return loss
 
 
 @torch.no_grad()
@@ -224,5 +310,14 @@ def decode(start_logits, end_logits, max_len=15):
     band = (idx.unsqueeze(0) >= idx.unsqueeze(1)) & (idx.unsqueeze(0) - idx.unsqueeze(1) < max_len)
     scores = scores.masked_fill(~band, NEG)
     flat = scores.view(scores.size(0), -1)
+    best = flat.argmax(-1)
+    return torch.stack([best // T, best % T], -1), flat.max(-1).values
+
+
+@torch.no_grad()
+def decode_joint(span_logits):
+    """Decode a globally scored span matrix whose invalid entries are already masked."""
+    B, T, _ = span_logits.shape
+    flat = span_logits.reshape(B, -1)
     best = flat.argmax(-1)
     return torch.stack([best // T, best % T], -1), flat.max(-1).values

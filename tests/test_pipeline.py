@@ -187,6 +187,71 @@ def test_start_conditioned_end_head_is_differentiable():
     assert model.start_head.weight.grad.abs().sum() > 0
 
 
+def test_joint_span_scorer_masks_invalid_spans_and_trains():
+    import torch
+    from src.model import TweetBiDAF, decode_joint, span_loss
+    rows = [dict(row_id=0, qid="a", question="which school?", tweet=TWEET,
+                 answers=["independence high school"], answer_field="")]
+    exs = D.preprocess(rows)
+    wv, cv = D.build_vocabs(exs, min_freq=1, char_min_freq=1)
+    D.encode(exs, wv, cv); batch = D.collate(exs)
+    cfg = dict(hidden=16, char_filters=4, max_span_len=3,
+               use_joint_span_scorer=True)
+    model = TweetBiDAF(len(wv), len(cv), cfg)
+    out = model(batch)
+    assert out["span_logits"].shape[1:] == (batch["t_words"].size(1),) * 2
+    idx, _ = decode_joint(out["span_logits"])
+    i, j = idx[0].tolist(); assert i <= j < i + 3
+    loss = span_loss(out, batch, soft=False,
+                     cfg=dict(use_joint_span_loss=True, use_quality_weight=True,
+                              use_hard_negative=True))
+    loss.backward()
+    assert model.span_start.weight.grad.abs().sum() > 0
+
+
+def test_self_attention_modes_preserve_shapes_and_condition_on_question():
+    import torch
+    from src.model import TweetBiDAF
+    rows = [dict(row_id=0, qid="a", question="which school?", tweet=TWEET,
+                 answers=["independence high school"], answer_field="")]
+    exs = D.preprocess(rows)
+    wv, cv = D.build_vocabs(exs, min_freq=1, char_min_freq=1)
+    D.encode(exs, wv, cv); batch = D.collate(exs)
+    for mode in ("gated", "residual", "question_gated"):
+        model = TweetBiDAF(len(wv), len(cv), dict(hidden=16, char_filters=4,
+                                                 self_attn_mode=mode))
+        out = model(batch, return_attn=True)
+        B, T = batch["t_words"].shape
+        assert out["self_attn"].shape == (B, T, T)
+        assert out["start_logits"].shape == (B, T)
+        (out["start_logits"].sum() + out["end_logits"].sum()).backward()
+        assert model.self_attn.mha.in_proj_weight.grad.abs().sum() > 0
+        if mode == "question_gated":
+            assert model.self_attn.question_proj.weight.grad.abs().sum() > 0
+
+
+def test_unknown_self_attention_mode_is_rejected():
+    from src.model import TweetBiDAF
+    with pytest.raises(ValueError, match="unknown self_attn_mode"):
+        TweetBiDAF(10, 10, dict(hidden=16, char_filters=4, self_attn_mode="unknown"))
+
+
+def test_reranker_features_are_fixed_and_finite():
+    import numpy as np
+    from src.rerank import FEATURE_NAMES, candidate_features
+    rows = [dict(row_id=0, qid="a", question="which school?", tweet=TWEET,
+                 answers=["independence high school"], answer_field="")]
+    ex = D.preprocess(rows)[0]
+    i, j = ex["best"]
+    candidate = dict(start=i, end=j, text=D.span_text(ex, i, j),
+                     start_logp=-1.0, end_logp=-2.0, base_score=-3.0,
+                     region="body")
+    features = candidate_features(ex, candidate, rank=2, top_score=-2.5)
+    assert features.shape == (len(FEATURE_NAMES),)
+    assert len(FEATURE_NAMES) == len(set(FEATURE_NAMES)) == 30
+    assert np.isfinite(features).all()
+
+
 def test_soft_tau_narrows_soft_set_but_not_trainable():
     rows = [dict(row_id=0, qid="a", question="where are the students?", tweet=TWEET,
                  answers=["independence high school"], answer_field="")]
