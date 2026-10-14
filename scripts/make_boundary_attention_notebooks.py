@@ -3,8 +3,8 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TRAIN_OUT = ROOT / "colab_boundary_attention_experiment.ipynb"
-REPORT_OUT = ROOT / "boundary_attention_results_report.ipynb"
+TRAIN_OUT = ROOT / "step03a_colab_boundary_attention_experiment.ipynb"
+REPORT_OUT = ROOT / "boundary_step02c_attention_results_report.ipynb"
 FILES = [
     "src/__init__.py", "src/evaluate.py", "src/data.py", "src/runlog.py",
     "src/model.py", "src/fasttext_init.py", "src/train.py",

@@ -1,7 +1,7 @@
 """Build a self-contained Kaggle/Colab notebook that runs GPU jobs and zips the results.
 
-  python scripts/make_gpu_notebook.py --run 1   # gpu_runner.ipynb: frozen v1 model, A1-A5, B2, B3-B5
-  python scripts/make_gpu_notebook.py --run 2   # gpu_runner_run2.ipynb: ablations on the single-span
+  python scripts/make_gpu_notebook.py --run 1   # step01a_gpu_runner.ipynb: frozen v1 model, A1-A5, B2, B3-B5
+  python scripts/make_gpu_notebook.py --run 2   # step01b_gpu_runner_run2.ipynb: ablations on the single-span
                                                 #   main model (v2) + soft-target width experiment
 """
 import argparse
@@ -50,11 +50,11 @@ ABL2 = {
 RUN2_JOBS = [dict(name=n, seed=s, set={**OVR2, **o}) for n, o in ABL2.items() for s in (1, 2, 3)]
 
 RUNS = {
-    1: dict(out="gpu_runner.ipynb", zip="a2_gpu_results", jobs=MAIN_JOBS, baselines=True,
+    1: dict(out="step01a_gpu_runner.ipynb", zip="a2_gpu_results", jobs=MAIN_JOBS, baselines=True,
             keep=("cand_lr5e-4_ft-", "A3_no_selfattn-", "A5_single_span-", "B2_vanilla-"),
             what="- the frozen main model (v1, soft targets), 3 seeds\n- ablations A1–A5 and B2, 3 seeds each\n"
                  "- baselines B3 (BERTweet), B4 (t5-small) and B5 (Qwen2.5-1.5B)", hours="1–1.5 h"),
-    2: dict(out="gpu_runner_run2.ipynb", zip="a2_gpu_results_run2", jobs=RUN2_JOBS, baselines=False,
+    2: dict(out="step01b_gpu_runner_run2.ipynb", zip="a2_gpu_results_run2", jobs=RUN2_JOBS, baselines=False,
             keep=("S_A3_no_selfattn-",),
             what="- ablations A1–A4 re-run on the **new main model (single silver span)**, 3 seeds each\n"
                  "- soft-target width experiment: soft targets with soft_tau 0.7 and 0.85, 3 seeds each\n"

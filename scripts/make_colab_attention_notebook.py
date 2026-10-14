@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_GENERATOR = Path(__file__).with_name("make_colab_v2_notebook.py")
-OUT = ROOT / "colab_attention_analysis.ipynb"
+OUT = ROOT / "step02a_colab_attention_analysis.ipynb"
 
 
 def load_base():

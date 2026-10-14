@@ -3,8 +3,8 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ANALYSIS_OUT = ROOT / "colab_topk_span_oracle.ipynb"
-REPORT_OUT = ROOT / "topk_span_oracle_report.ipynb"
+ANALYSIS_OUT = ROOT / "step08a_colab_topk_span_oracle.ipynb"
+REPORT_OUT = ROOT / "step08b_topk_span_oracle_report.ipynb"
 FILES = ["src/__init__.py", "src/evaluate.py", "src/data.py", "src/runlog.py",
          "src/model.py", "src/fasttext_init.py", "src/train.py"]
 

@@ -15,7 +15,7 @@ Work through the stages in order **without stopping**, except at two checkpoints
 4. **Test set is used once**, at the very end, for the final table. All selection/tuning on validation. Keep a `TEST_LOCKED = True` flag; evaluation on test raises unless it is set False.
 5. Every number in the report must come from a logged run. All runs append to `results/runs.csv` (run_id, model, config JSON, seed, split, BLEU-1, METEOR, ROUGE-L, EM, F1, train time).
 6. Final deliverable = ONE notebook `CITS4012_<GroupID>.ipynb` built on the provided Colab template, runnable from a clean Colab runtime, with logs saved as outputs.
-7. ~~Train locally on this Apple Silicon Mac.~~ **Changed 2026-10-08 by the team:** full training runs on a Kaggle/Colab GPU via `gpu_runner.ipynb`, which the user runs. Device selection stays `mps → cuda → cpu`. Run a ≤200-example smoke test before every full run (locally, seconds). Stages 3–4 ran on the Mac (MPS) before this change. Stage 5 and the B3–B5 baselines ran on Kaggle 2×T4.
+7. ~~Train locally on this Apple Silicon Mac.~~ **Changed 2026-10-08 by the team:** full training runs on a Kaggle/Colab GPU via `step01a_gpu_runner.ipynb`, which the user runs. Device selection stays `mps → cuda → cpu`. Run a ≤200-example smoke test before every full run (locally, seconds). Stages 3–4 ran on the Mac (MPS) before this change. Stage 5 and the B3–B5 baselines ran on Kaggle 2×T4.
 
 ## Layout
 

@@ -6,15 +6,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 REPORT_STEPS = {
-    "attention_results_report.ipynb": ["Load saved results", "Aggregate attention ablation", "Inspect attention diagnostics", "Review error categories", "Review representative examples", "Write the conclusion"],
-    "boundary_attention_results_report.ipynb": ["Load the artifact", "Compare boundary objectives", "Inspect boundary diagnostics", "Review paired examples", "Write the conclusion"],
-    "attention_variants_report.ipynb": ["Load and validate the artifact", "Compare attention variants", "Run paired bootstrap analysis", "Inspect question-type slices", "Write the conclusion"],
-    "joint_span_results_report.ipynb": ["Load the artifact", "Compare component scores", "Estimate component effects", "Check optimisation histories", "Write the conclusion"],
-    "linear_span_reranker_report.ipynb": ["Load and validate the artifact", "Compare reranker metrics", "Run paired bootstrap analysis", "Inspect slices and selected ranks", "Inspect feature effects", "Write the conclusion"],
-    "oof_span_reranker_report.ipynb": ["Load and validate the artifact", "Compare OOF reranker metrics", "Run paired bootstrap analysis", "Inspect validation slices", "Inspect ranks and feature importance", "Write the conclusion"],
-    "pointer_generator_results_report.ipynb": ["Load the artifact", "Compare generation and extraction", "Inspect extractive-status slices", "Write the conclusion"],
-    "quality_weight_3seed_report.ipynb": ["Load and validate the artifact", "Compare three-seed results", "Run paired bootstrap analysis", "Write the conclusion"],
-    "topk_span_oracle_report.ipynb": ["Load and validate the artifact", "Measure the Top-K oracle ceiling", "Inspect question and region slices", "Inspect the required candidate rank", "Write the conclusion"],
+    "step02c_attention_results_report.ipynb": ["Load saved results", "Aggregate attention ablation", "Inspect attention diagnostics", "Review error categories", "Review representative examples", "Write the conclusion"],
+    "boundary_step02c_attention_results_report.ipynb": ["Load the artifact", "Compare boundary objectives", "Inspect boundary diagnostics", "Review paired examples", "Write the conclusion"],
+    "step07b_attention_variants_report.ipynb": ["Load and validate the artifact", "Compare attention variants", "Run paired bootstrap analysis", "Inspect question-type slices", "Write the conclusion"],
+    "step05b_joint_span_results_report.ipynb": ["Load the artifact", "Compare component scores", "Estimate component effects", "Check optimisation histories", "Write the conclusion"],
+    "step09b_linear_span_reranker_report.ipynb": ["Load and validate the artifact", "Compare reranker metrics", "Run paired bootstrap analysis", "Inspect slices and selected ranks", "Inspect feature effects", "Write the conclusion"],
+    "step10b_oof_span_reranker_report.ipynb": ["Load and validate the artifact", "Compare OOF reranker metrics", "Run paired bootstrap analysis", "Inspect validation slices", "Inspect ranks and feature importance", "Write the conclusion"],
+    "step04b_pointer_generator_results_report.ipynb": ["Load the artifact", "Compare generation and extraction", "Inspect extractive-status slices", "Write the conclusion"],
+    "step06b_quality_weight_3seed_report.ipynb": ["Load and validate the artifact", "Compare three-seed results", "Run paired bootstrap analysis", "Write the conclusion"],
+    "step08b_topk_span_oracle_report.ipynb": ["Load and validate the artifact", "Measure the Top-K oracle ceiling", "Inspect question and region slices", "Inspect the required candidate rank", "Write the conclusion"],
 }
 
 
@@ -62,7 +62,7 @@ def main():
             continue
         nb = json.loads(path.read_text(encoding="utf-8"))
         normalise_numbered_headings(nb)
-        if path.name in {"gpu_runner.ipynb", "gpu_runner_run2.ipynb"}:
+        if path.name in {"step01a_gpu_runner.ipynb", "step01b_gpu_runner_run2.ipynb"}:
             for cell in nb["cells"]:
                 if cell.get("cell_type") != "markdown":
                     continue

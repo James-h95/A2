@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "colab_attention_only.ipynb"
+OUT = ROOT / "step02b_colab_attention_only.ipynb"
 
 
 def load_base():
