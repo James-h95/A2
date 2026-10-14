@@ -10,9 +10,12 @@ from src import data as D  # noqa: E402
 from src.evaluate import METRICS  # noqa: E402
 
 FROZEN = json.loads((ROOT / "results" / "FROZEN_CONFIG.json").read_text())
-ABL = [("cand_lr5e-4_ft", "Full model"), ("A1_no_char", "A1: $-$ char-CNN"), ("A2_no_norm_flags", "A2: $-$ normaliser \\& flags"),
-       ("A3_no_selfattn", "A3: $-$ self-attention"), ("A4_c2q_only", "A4: C2Q only (no Q2C)"),
-       ("A5_single_span", "A5: single silver span"), ("B2_vanilla", "B2: all flags off")]
+ABL = [("A5_single_span", "Full model v2"), ("S_A1_no_char", "A1: $-$ char-CNN"),
+       ("S_A2_no_norm_flags", "A2: $-$ normaliser \\& flags"),
+       ("S_A3_no_selfattn", "A3: $-$ self-attention"),
+       ("S_A4_c2q_only", "A4: C2Q only (no Q2C)"),
+       ("cand_lr5e-4_ft", "A5: wide soft targets (v1)"),
+       ("B2_vanilla", "B2: all task-specific parts off")]
 
 groups = A.runs_by_name([n for n, _ in ABL])
 _, val_rows = D.get_splits()

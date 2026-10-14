@@ -135,10 +135,10 @@ for name in ("train.csv", "test.csv"):
         shutil.copy(src, WORK / "data" / name)
 import hashlib
 for name in ("train.csv", "test.csv"):
-    h = hashlib.sha1((WORK / "data" / name).read_bytes()).hexdigest()
+    h = hashlib.sha1((WORK / "data" / name).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
     print(name, h)
-assert hashlib.sha1((WORK / "data" / "train.csv").read_bytes()).hexdigest() == "8a52bb7dff56b11fdad1ab6fd3b848fbadc22849", "unexpected train.csv"
-assert hashlib.sha1((WORK / "data" / "test.csv").read_bytes()).hexdigest() == "e33faa7614839d10a06b3607e74e51b70a0ee329", "unexpected test.csv"
+assert hashlib.sha1((WORK / "data" / "train.csv").read_bytes().replace(b"\r\n", b"\n")).hexdigest() == "8a52bb7dff56b11fdad1ab6fd3b848fbadc22849", "unexpected train.csv"
+assert hashlib.sha1((WORK / "data" / "test.csv").read_bytes().replace(b"\r\n", b"\n")).hexdigest() == "e33faa7614839d10a06b3607e74e51b70a0ee329", "unexpected test.csv"
 '''
 
 RUN_HELPER = '''# ---------------- helper: run a command, stream its output, keep a log ----------------

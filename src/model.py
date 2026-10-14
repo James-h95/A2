@@ -27,6 +27,7 @@ DEFAULT_MODEL = dict(
     word_dim=100, char_dim=32, char_filters=50, char_widths=(3, 4, 5), n_flags=8,
     hidden=128, dropout=0.2, attn_heads=4, max_span_len=15,
     use_char_cnn=True, use_token_flags=True, use_self_attn=True, biattn_mode="both",
+    condition_end_on_start=False,
 )
 
 
@@ -140,7 +141,11 @@ class TweetBiDAF(nn.Module):
         self.model1 = BiLSTM(2 * H, H, layers=2, dropout=p)
         self.model2 = BiLSTM(2 * H, H)
         self.start_head = nn.Linear(4 * H, 1)
-        self.end_head = nn.Linear(4 * H, 1)
+        # Optional boundary-aware head: the predicted start distribution forms a
+        # differentiable summary of the likely answer start.  Each end candidate
+        # is scored jointly with that summary and their elementwise interaction.
+        end_dim = 8 * H if cfg["condition_end_on_start"] else 4 * H
+        self.end_head = nn.Linear(end_dim, 1)
 
     # ---------------------------------------------------------------- layers
     def embed(self, words, chars, flags):
@@ -182,10 +187,18 @@ class TweetBiDAF(nn.Module):
         m1 = self.drop(self.model1(x, tm))
         m2 = self.drop(self.model2(m1, tm))
         start = self.start_head(torch.cat([x, m1], -1)).squeeze(-1).masked_fill(~tm, NEG)
-        end = self.end_head(torch.cat([x, m2], -1)).squeeze(-1).masked_fill(~tm, NEG)
+        if self.cfg["condition_end_on_start"]:
+            start_prob = F.softmax(start, dim=-1)
+            start_summary = torch.bmm(start_prob.unsqueeze(1), m1).expand_as(m2)
+            end_features = torch.cat([x, m2, start_summary, m2 * start_summary], -1)
+        else:
+            start_prob = None
+            end_features = torch.cat([x, m2], -1)
+        end = self.end_head(end_features).squeeze(-1).masked_fill(~tm, NEG)
         out = dict(start_logits=start, end_logits=end)
         if return_attn:
-            out.update(S=S, c2q=a, q2c=b, self_attn=sa)
+            out.update(S=S, c2q=a, q2c=b, self_attn=sa,
+                       start_prob_for_end=start_prob)
         return out
 
 

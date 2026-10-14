@@ -4,7 +4,7 @@ Module cells ({"type": "module"}) are inlined from src/ at build time."""
 README = r"""
 **Task.** TweetQA (Xiong et al., 2019): answer a question about a tweet. The gold answers are short and mostly extractive (about 65% occur in the tweet after normalisation). Metrics: BLEU-1, METEOR, ROUGE-L (the official TweetQA metrics), plus EM and token-F1.
 
-**Main model (trained from scratch): TweetBiDAF.** Word emb ⊕ char-CNN over raw tokens ⊕ tweet token flags (incl. a byline flag) → highway → shared BiLSTM → trilinear bi-attention (C2Q + Q2C) → gated multi-head self-attention → modelling BiLSTMs → span start/end. It is trained with *soft silver-span* targets, because TweetQA answers are free text, not spans. The word vectors are initialised from a FastText model **trained from scratch on the TweetQA training split only**. No pretrained weights and no external data are used in the main model.
+**Main model (trained from scratch): TweetBiDAF v2.** Word emb ⊕ char-CNN over raw tokens ⊕ tweet token flags (incl. a byline flag) → highway → shared BiLSTM → trilinear bi-attention (C2Q + Q2C) → gated multi-head self-attention → modelling BiLSTMs → span start/end. Each trainable example uses its single highest-scoring silver span as the target. A controlled experiment with weighted soft-span targets performed worse on validation. The word vectors are initialised from a FastText model **trained from scratch on the TweetQA training split only**. No pretrained weights and no external data are used in the main model.
 
 **Baselines** (clearly separate from the main model):
 - B1: lexical sliding window (no learning)
@@ -13,7 +13,7 @@ README = r"""
 - B4: fine-tuned `t5-small` generator
 - B5: few-shot `Qwen2.5-1.5B-Instruct` (no fine-tuning)
 
-**Data and splits.** `train.csv` (10,692) and `test.csv` (1,086, which is the original TweetQA dev set and has gold answers) from the unit's shared folder. Validation is 10% of `train.csv` (1,076 questions), **grouped by tweet**, stratified by question word, seed 4012. The 46 exact-duplicate rows are dropped. **The test set is locked (`TEST_LOCKED`) and was used once, for the final table (Section 3.3).** All tuning, ablations and analysis use validation only.
+**Data and splits.** `train.csv` (10,692) and `test.csv` (1,086, which is the original TweetQA dev set and has gold answers) from the unit's shared folder. Validation is 10% of `train.csv` (1,076 questions), **grouped by tweet**, stratified by question word, seed 4012. The 46 exact-duplicate rows are dropped. **The test set remains locked throughout development and is unlocked only in Section 3.3 for the single final evaluation.** All tuning, ablations and analysis use validation only.
 
 **How to run (clean Colab runtime, GPU recommended).**
 1. Run all cells top to bottom. The Setup cell installs `gensim nltk transformers sentencepiece emoji huggingface_hub gdown`.
@@ -129,12 +129,12 @@ TRAIN_ALL = r'''
 BASE = {**DEFAULT_TRAIN, **DEFAULT_MODEL}
 SWEEP = {"sw_lr5e-4": {"lr": 5e-4}, "sw_h96": {"hidden": 96}, "sw_h192": {"hidden": 192}, "sw_do0.3": {"dropout": 0.3},
          "sw_L10": {"max_span_len": 10}, "sw_L20": {"max_span_len": 20}, "sw_fasttext": {"word_init": "fasttext"}}
-ABLATIONS = {
-    "A1_no_char": {"use_char_cnn": False},
-    "A2_no_norm_flags": {"use_normaliser": False, "use_token_flags": False},
-    "A3_no_selfattn": {"use_self_attn": False},
-    "A4_c2q_only": {"biattn_mode": "c2q"},
-    "A5_single_span": {"soft_spans": False},
+V2_ABLATIONS = {
+    "S_A1_no_char": {"use_char_cnn": False},
+    "S_A2_no_norm_flags": {"use_normaliser": False, "use_token_flags": False},
+    "S_A3_no_selfattn": {"use_self_attn": False},
+    "S_A4_c2q_only": {"biattn_mode": "c2q"},
+    "cand_lr5e-4_ft": {"soft_spans": True},  # A5: wide soft targets (the former v1)
     "B2_vanilla": {"use_char_cnn": False, "use_normaliser": False, "use_token_flags": False,
                    "use_self_attn": False, "biattn_mode": "c2q", "soft_spans": False},
 }
@@ -147,8 +147,8 @@ if TRAIN:
     for s in (2, 3):
         train({**BASE, "lr": 5e-4}, seed=s, name="sw_lr5e-4")
     for s in (1, 2, 3):
-        train(FROZEN_CFG, seed=s, name="cand_lr5e-4_ft")                  # frozen config, 3 seeds
-    for name, over in ABLATIONS.items():                                  # Stage 5
+        train(FROZEN_CFG, seed=s, name="A5_single_span")                 # final v2, 3 seeds
+    for name, over in V2_ABLATIONS.items():                               # Stage 5 on the v2 base
         for s in (1, 2, 3):
             train({**FROZEN_CFG, **over}, seed=s, name=name)
 else:
@@ -157,7 +157,7 @@ else:
 
 TRAIN_LOGS = r'''
 # ---------------- saved training logs: every epoch of every reported main-model run ----------------
-MAIN_RUNS = ["main_v1", "sw_base", *SWEEP, "cand_lr5e-4_ft", *ABLATIONS]
+MAIN_RUNS = ["main_v1", "sw_base", *SWEEP, "A5_single_span", *V2_ABLATIONS]
 for r in read_runs():
     if r["model"] in MAIN_RUNS and r["split"] == "val":
         h = json.loads(Path(f"results/history/{r['run_id']}.json").read_text())
@@ -211,7 +211,15 @@ for name in ("main_v1+sw_base", "sw_lr5e-4", "cand_lr5e-4_ft"):
 
 ABLATION_TABLE = r'''
 # ---------------- 3.2 ablations (validation, 3 seeds each) + hypothesis slices ----------------
-ABL_ROWS = [("cand_lr5e-4_ft", "Full model"), *[(k, k) for k in ABLATIONS]]
+ABL_ROWS = [
+    ("A5_single_span", "Full model v2"),
+    ("S_A1_no_char", "A1: no char-CNN"),
+    ("S_A2_no_norm_flags", "A2: no normaliser or token flags"),
+    ("S_A3_no_selfattn", "A3: no self-attention"),
+    ("S_A4_c2q_only", "A4: C2Q only (no Q2C)"),
+    ("cand_lr5e-4_ft", "A5: wide soft targets (v1)"),
+    ("B2_vanilla", "B2: all task-specific parts off"),
+]
 sl = slices(va_ex, wv_demo)
 print("slice sizes:", {k: len(v) for k, v in sl.items()})
 for name, label in ABL_ROWS:
@@ -226,13 +234,13 @@ for name, label in ABL_ROWS:
 '''
 
 TEST_EVAL = r'''
-# ---------------- 3.3 final test-set evaluation (run once; numbers match results/runs.csv) ----------------
+# ---------------- 3.3 final test-set evaluation (run once, after all development is frozen) ----------------
 TEST_LOCKED = False                      # unlocked only here, for the final table
 test_rows = load_test()
 device = get_device()
 golds = [r["answers"] for r in test_rows]
 final = {}
-for name in ("cand_lr5e-4_ft", "B2_vanilla"):
+for name in ("A5_single_span", "B2_vanilla"):
     per_seed = []
     for r in sorted(grp(name), key=lambda r: r["seed"]):
         model, cfg, wv, cv = load_checkpoint(f"checkpoints/{r['run_id']}.pt", device)

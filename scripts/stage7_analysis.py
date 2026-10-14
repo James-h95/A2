@@ -13,6 +13,11 @@ from src import train as T  # noqa: E402
 from src.evaluate import evaluate, score_example  # noqa: E402
 from src.runlog import read_runs  # noqa: E402
 
+# A fresh Colab workspace does not contain these output directories yet.
+# Create them before saving figures or the question-type LaTeX table.
+A.FIG_DIR.mkdir(parents=True, exist_ok=True)
+A.TAB_DIR.mkdir(parents=True, exist_ok=True)
+
 
 def ckpt_for(model_name, seed=1):
     rs = [r for r in read_runs() if r["model"] == model_name and r["seed"] == str(seed) and r["split"] == "val"]
@@ -20,8 +25,8 @@ def ckpt_for(model_name, seed=1):
 
 
 device = T.get_device()
-full_ck, full_id = ckpt_for("cand_lr5e-4_ft", 1)
-noa3_ck, noa3_id = ckpt_for("A3_no_selfattn", 1)
+full_ck, full_id = ckpt_for("A5_single_span", 1)
+noa3_ck, noa3_id = ckpt_for("S_A3_no_selfattn", 1)
 model, cfg, wv, cv = T.load_checkpoint(full_ck, device)
 model_off, cfg_off, wv_off, cv_off = T.load_checkpoint(noa3_ck, device)
 assert wv.itos == wv_off.itos, "A3 model must share the vocabulary (same preprocessing and seed)"
@@ -85,11 +90,11 @@ import matplotlib  # noqa: E402
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 fig, ax = plt.subplots(1, 2, figsize=(9, 3))
-for r in [r for r in read_runs() if r["model"] == "cand_lr5e-4_ft"]:
+for r in [r for r in read_runs() if r["model"] == "A5_single_span"]:
     h = json.loads((ROOT / "results" / "history" / f"{r['run_id']}.json").read_text())["history"]
     ax[0].plot([x["epoch"] for x in h], [x["train_loss"] for x in h], label=f"seed {r['seed']}")
     ax[1].plot([x["epoch"] for x in h], [x["rougeL"] for x in h], label=f"seed {r['seed']}")
-ax[0].set_title("training loss (soft CE)"); ax[1].set_title("validation ROUGE-L")
+ax[0].set_title("training loss (single silver span)"); ax[1].set_title("validation ROUGE-L")
 for a in ax:
     a.set_xlabel("epoch"); a.legend(fontsize=7)
 for ext in ("pdf", "png"):

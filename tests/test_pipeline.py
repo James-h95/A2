@@ -167,6 +167,26 @@ def test_decode_respects_band():
     assert i <= j < i + 2
 
 
+def test_start_conditioned_end_head_is_differentiable():
+    import torch
+    from src.model import TweetBiDAF
+    rows = [dict(row_id=0, qid="a", question="which school?", tweet=TWEET,
+                 answers=["independence high school"], answer_field="")]
+    exs = D.preprocess(rows)
+    wv, cv = D.build_vocabs(exs, min_freq=1, char_min_freq=1)
+    D.encode(exs, wv, cv)
+    batch = D.collate(exs)
+    model = TweetBiDAF(len(wv), len(cv), dict(hidden=16, char_filters=4,
+                                             condition_end_on_start=True))
+    out = model(batch, return_attn=True)
+    assert out["start_prob_for_end"].shape == out["start_logits"].shape
+    assert torch.allclose(out["start_prob_for_end"].sum(-1), torch.ones(1), atol=1e-5)
+    out["end_logits"].sum().backward()
+    # End loss must be able to update the start head through the soft summary.
+    assert model.start_head.weight.grad is not None
+    assert model.start_head.weight.grad.abs().sum() > 0
+
+
 def test_soft_tau_narrows_soft_set_but_not_trainable():
     rows = [dict(row_id=0, qid="a", question="where are the students?", tweet=TWEET,
                  answers=["independence high school"], answer_field="")]
