@@ -1,0 +1,35 @@
+% Copy the two PDFs into your LaTeX project's figures/ directory.
+% Preamble: \usepackage{graphicx}
+% Use figure* for full-width figures in the ACL two-column layout.
+% These are figure snippets, not a standalone LaTeX document.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/tweetqa_final_architecture.pdf}
+  \caption{Final prediction system. (a) The from-scratch TweetBiDAF span
+  predictor combines word, character, and token-type features with a shared
+  BiLSTM encoder, bidirectional question--context attention, and gated
+  self-attention. (b) Three independently initialized models trained on the
+  same training partition produce start and end distributions, which are
+  averaged separately. The ten highest-scoring valid spans under
+  $\log \bar p_s(i)+\log \bar p_e(j)$ are represented by 30 features and
+  scored by a fixed OOF-trained LambdaMART reranker. The highest-ranked
+  span is extracted from the original tweet. Gold answers are not used at
+  prediction time.}
+  \label{fig:final-system}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/tweetqa_oof_training.pdf}
+  \caption{Out-of-fold (OOF) candidate generation for reranker training.
+  The training partition is divided into three tweet-grouped folds.
+  Each fold model is fitted and selected using only the other two folds,
+  with a separate internal validation subset for early stopping.
+  Predictions on the held-out fold provide candidate features; gold
+  answers in that fold provide relevance labels. Records from all folds
+  are pooled to train one reranker. Outer validation and test data remain
+  separate. These fold models are distinct from the three full-training-partition
+  prediction models in Figure~\ref{fig:final-system}.}
+  \label{fig:oof-training}
+\end{figure*}

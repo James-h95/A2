@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="503.99999999999994" height="329.0" preserveAspectRatio="xMinYMin meet" viewBox="0 0 503 329" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="503.99999999999994" height="329.0"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-329)" style="clip-path: url(#clip)">
+		<g transform=" matrix(0.7,0,0,0.7,0,0)">
+			<text x="35.0155" y="449" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,898) scale(1,-1)">(a) TweetBiDAF span predictor</text>
+			<text x="409.645" y="449" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,898) scale(1,-1)">(b) Final inference pipeline</text>
+			<path d="M 270,38 L 270,433 Z" style="stroke: rgb(83%,86%,89%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<rect x="13" y="396" width="111" height="31" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="32.818" y="407.42" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,814) scale(1,-1)">Tweet tokens</text>
+			<rect x="139" y="396" width="111" height="31" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="151.144" y="407.42" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,814) scale(1,-1)">Question tokens</text>
+			<polyline points="69 396, 69 381, 130 381, 130 368" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="130 368, 127.5 374, 132.5 374" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<polyline points="195 396, 195 381, 130 381" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<rect x="13" y="321" width="237" height="47" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="51.141999999999996" y="347.8" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,695) scale(1,-1)">Word + character CNN + flags</text>
+			<text x="62.458" y="333.04" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,666) scale(1,-1)">100 + 150 + 8 dimensions</text>
+			<polyline points="130 321, 130 306" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="130 306, 127.5 312, 132.5 312" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="13" y="277" width="237" height="29" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="81.49" y="287.42" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,574) scale(1,-1)">Two-layer highway</text>
+			<polyline points="130 277, 130 262" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="130 262, 127.5 268, 132.5 268" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="13" y="218" width="237" height="44" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="65.806" y="243.29999999999998" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,486) scale(1,-1)">Shared BiLSTM encoder</text>
+			<text x="52.792" y="228.54" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,457) scale(1,-1)">128 hidden units per direction</text>
+			<polyline points="130 218, 130 203" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="130 203, 127.5 209, 132.5 209" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="13" y="164" width="237" height="39" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(90%,95%,93%); fill-rule: evenodd;"/>
+			<text x="79.318" y="186.79999999999998" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,373) scale(1,-1)">BiDAF: C2Q + Q2C</text>
+			<text x="62.47" y="172.04" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,344) scale(1,-1)">Project to 256 dimensions</text>
+			<polyline points="130 164, 130 149" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="130 149, 127.5 155, 132.5 155" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="13" y="116" width="237" height="33" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(90%,95%,93%); fill-rule: evenodd;"/>
+			<text x="52.12599999999999" y="128.42" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,256) scale(1,-1)">Gated self-attention (4 heads)</text>
+			<polyline points="130 116, 130 101" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="130 101, 127.5 107, 132.5 107" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="13" y="57" width="237" height="44" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="41.962" y="82.3" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,164) scale(1,-1)">Modelling BiLSTMs + span heads</text>
+			<text x="42.46000000000001" y="67.53999999999999" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,135) scale(1,-1)">Start distribution / end distribution</text>
+			<text x="28.560000000000002" y="38" style="font-family: Helvetica; font-size: 10px;fill: rgb(39%,45%,50%); stroke:none;" transform="translate(0,76) scale(1,-1)">Same encoder weights for tweet and question</text>
+			<rect x="391" y="397" width="202" height="30" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="446.142" y="407.92" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,815) scale(1,-1)">Tweet + question</text>
+			<polyline points="492 397, 492 382, 360 382, 360 367" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="360 367, 357.5 373, 362.5 373" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="295" y="320" width="130" height="47" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="324.666" y="346.8" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,693) scale(1,-1)">TweetBiDAF</text>
+			<text x="340.656" y="332.04" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,664) scale(1,-1)">Seed 1</text>
+			<polyline points="492 397, 492 382, 505 382, 505 367" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="505 367, 502.5 373, 507.5 373" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="440" y="320" width="130" height="47" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="469.666" y="346.8" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,693) scale(1,-1)">TweetBiDAF</text>
+			<text x="485.656" y="332.04" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,664) scale(1,-1)">Seed 2</text>
+			<polyline points="492 397, 492 382, 650 382, 650 367" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="650 367, 647.5 373, 652.5 373" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="585" y="320" width="130" height="47" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="614.6659999999999" y="346.8" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,693) scale(1,-1)">TweetBiDAF</text>
+			<text x="630.656" y="332.04" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,664) scale(1,-1)">Seed 3</text>
+			<polyline points="360 320, 360 294, 492 294, 492 280" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="492 280, 489.5 286, 494.5 286" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<polyline points="505 320, 505 294, 492 294, 492 280" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="492 280, 489.5 286, 494.5 286" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<polyline points="650 320, 650 294, 492 294, 492 280" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="492 280, 489.5 286, 494.5 286" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="355" y="235" width="274" height="45" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(90%,95%,93%); fill-rule: evenodd;"/>
+			<text x="398.045" y="260.66249999999997" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,521) scale(1,-1)">Average probabilities across 3 seeds</text>
+			<text x="402.1965" y="246.51749999999996" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,493) scale(1,-1)">Mean start / mean end distributions</text>
+			<polyline points="492 235, 492 220" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="492 220, 489.5 226, 494.5 226" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="355" y="178" width="274" height="42" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(98%,94%,84%); fill-rule: evenodd;"/>
+			<text x="420.306" y="202.29999999999998" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,404) scale(1,-1)">Top-10 valid answer spans</text>
+			<text x="403.962" y="187.54" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,375) scale(1,-1)">Maximum span length: 15 tokens</text>
+			<polyline points="492 178, 492 150" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="492 150, 489.5 156, 494.5 156" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="355" y="119" width="274" height="31" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(98%,94%,84%); fill-rule: evenodd;"/>
+			<text x="396.288" y="130.42" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,260) scale(1,-1)">30 numerical features per candidate</text>
+			<polyline points="492 119, 492 104" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="492 104, 489.5 110, 494.5 110" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="355" y="65" width="274" height="39" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(94%,91%,96%); fill-rule: evenodd;"/>
+			<text x="401.976" y="87.8" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,175) scale(1,-1)">Fixed OOF-trained LambdaMART</text>
+			<text x="426.3" y="73.03999999999999" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,146) scale(1,-1)">One score per candidate</text>
+			<polyline points="492 65, 492 50" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="492 50, 489.5 56, 494.5 56" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="355" y="20" width="274" height="30" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="397.806" y="30.92" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,61) scale(1,-1)">Best span -&gt; original-text answer</text>
+		</g>
+	</g>
+</svg>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="503.99999999999994" height="304.5" preserveAspectRatio="xMinYMin meet" viewBox="0 0 503 304" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="503.99999999999994" height="304.5"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-304)" style="clip-path: url(#clip)">
+		<g transform=" matrix(0.7,0,0,0.7,0,0)">
+			<text x="200.512" y="414" style="font-family: Helvetica-Bold; font-size: 14px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,828) scale(1,-1)">OOF candidate generation and reranker training</text>
+			<text x="178.0985" y="393" style="font-family: Helvetica; font-size: 11px;fill: rgb(39%,45%,50%); stroke:none;" transform="translate(0,786) scale(1,-1)">Split the training partition by tweet; keep outer validation and test separate.</text>
+			<text x="43.989" y="368" style="font-family: Helvetica-Bold; font-size: 11px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,736) scale(1,-1)">Base-model data</text>
+			<text x="211.3495" y="368" style="font-family: Helvetica-Bold; font-size: 11px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,736) scale(1,-1)">Fold-specific model</text>
+			<text x="406.5235" y="368" style="font-family: Helvetica-Bold; font-size: 11px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,736) scale(1,-1)">Unseen fold</text>
+			<text x="554.757" y="368" style="font-family: Helvetica-Bold; font-size: 11px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,736) scale(1,-1)">Reranker training records</text>
+			<rect x="13" y="288" width="150" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="73.45824999999999" y="319.66249999999997" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,639) scale(1,-1)">B + C</text>
+			<text x="32.0755" y="305.5175" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,611) scale(1,-1)">Fit / internal validation</text>
+			<polyline points="163 317, 188 317" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="188 317, 182 314.5, 182 319.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="188" y="288" width="150" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="229.328" y="319.8" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,639) scale(1,-1)">TweetBiDAF</text>
+			<text x="228.32" y="305.04" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,610) scale(1,-1)">Fold model 1</text>
+			<polyline points="338 317, 363 317" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="363 317, 357 314.5, 357 319.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="363" y="288" width="150" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(98%,94%,84%); fill-rule: evenodd;"/>
+			<text x="406.67975" y="319.66249999999997" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,639) scale(1,-1)">Predict on A</text>
+			<text x="376.314" y="305.5175" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,611) scale(1,-1)">Top-10 spans / question</text>
+			<polyline points="513 317, 542 317" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="542 317, 536 314.5, 536 319.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="542" y="288" width="160" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(94%,91%,96%); fill-rule: evenodd;"/>
+			<text x="573.41825" y="319.66249999999997" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,639) scale(1,-1)">Candidate features</text>
+			<text x="564.95425" y="305.5175" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,611) scale(1,-1)">+ labels from gold in A</text>
+			<rect x="13" y="204" width="150" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="73.45824999999999" y="235.6625" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,471) scale(1,-1)">A + C</text>
+			<text x="32.0755" y="221.51749999999998" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,443) scale(1,-1)">Fit / internal validation</text>
+			<polyline points="163 233, 188 233" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="188 233, 182 230.5, 182 235.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="188" y="204" width="150" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="229.328" y="235.79999999999998" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,471) scale(1,-1)">TweetBiDAF</text>
+			<text x="228.32" y="221.04" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,442) scale(1,-1)">Fold model 2</text>
+			<polyline points="338 233, 363 233" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="363 233, 357 230.5, 357 235.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="363" y="204" width="150" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(98%,94%,84%); fill-rule: evenodd;"/>
+			<text x="406.67975" y="235.6625" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,471) scale(1,-1)">Predict on B</text>
+			<text x="376.314" y="221.51749999999998" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,443) scale(1,-1)">Top-10 spans / question</text>
+			<polyline points="513 233, 542 233" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="542 233, 536 230.5, 536 235.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="542" y="204" width="160" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(94%,91%,96%); fill-rule: evenodd;"/>
+			<text x="573.41825" y="235.6625" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,471) scale(1,-1)">Candidate features</text>
+			<text x="564.95425" y="221.51749999999998" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,443) scale(1,-1)">+ labels from gold in B</text>
+			<rect x="13" y="120" width="150" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="73.7745" y="151.6625" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,303) scale(1,-1)">A + B</text>
+			<text x="32.0755" y="137.51749999999998" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,275) scale(1,-1)">Fit / internal validation</text>
+			<polyline points="163 149, 188 149" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="188 149, 182 146.5, 182 151.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="188" y="120" width="150" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="229.328" y="151.79999999999998" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,303) scale(1,-1)">TweetBiDAF</text>
+			<text x="228.32" y="137.04" style="font-family: Helvetica; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,274) scale(1,-1)">Fold model 3</text>
+			<polyline points="338 149, 363 149" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="363 149, 357 146.5, 357 151.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="363" y="120" width="150" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(98%,94%,84%); fill-rule: evenodd;"/>
+			<text x="406.3635" y="151.6625" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,303) scale(1,-1)">Predict on C</text>
+			<text x="376.314" y="137.51749999999998" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,275) scale(1,-1)">Top-10 spans / question</text>
+			<polyline points="513 149, 542 149" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="542 149, 536 146.5, 536 151.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="542" y="120" width="160" height="57" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(94%,91%,96%); fill-rule: evenodd;"/>
+			<text x="573.41825" y="151.6625" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,303) scale(1,-1)">Candidate features</text>
+			<text x="564.638" y="137.51749999999998" style="font-family: Helvetica; font-size: 11.5px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,275) scale(1,-1)">+ labels from gold in C</text>
+			<polyline points="702 317, 713 317, 713 88, 360 88, 360 72" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="360 72, 357.5 78, 362.5 78" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<polyline points="702 233, 713 233" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="713 233, 707 230.5, 707 235.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<polyline points="702 149, 713 149" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 1; fill: None; fill-rule: evenodd;"/>
+			<polygon points="713 149, 707 146.5, 707 151.5" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,25%); fill-rule: evenodd;"/>
+			<rect x="188" y="28" width="344" height="44" rx="4" ry="4" style="stroke: rgb(14%,20%,25%); stroke-linecap: butt; stroke-width: 0.85; fill: rgb(94%,91%,96%); fill-rule: evenodd;"/>
+			<text x="221.802" y="53.300000000000004" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,106) scale(1,-1)">Pool all OOF records -&gt; train ONE LambdaMART</text>
+			<text x="246.282" y="38.540000000000006" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(14%,20%,25%); stroke:none;" transform="translate(0,77) scale(1,-1)">9,570 questions / 95,700 candidate rows</text>
+			<text x="185.48" y="10" style="font-family: Helvetica; font-size: 10px;fill: rgb(39%,45%,50%); stroke:none;" transform="translate(0,20) scale(1,-1)">Gold supplies training labels only. Fold models are not used for final prediction.</text>
+			<text x="47.15" y="274" style="font-family: Helvetica; font-size: 10px;fill: rgb(39%,45%,50%); stroke:none;" transform="translate(0,548) scale(1,-1)">Hold out A entirely</text>
+			<text x="47.15" y="190" style="font-family: Helvetica; font-size: 10px;fill: rgb(39%,45%,50%); stroke:none;" transform="translate(0,380) scale(1,-1)">Hold out B entirely</text>
+			<text x="46.875" y="106" style="font-family: Helvetica; font-size: 10px;fill: rgb(39%,45%,50%); stroke:none;" transform="translate(0,212) scale(1,-1)">Hold out C entirely</text>
+		</g>
+	</g>
+</svg>
