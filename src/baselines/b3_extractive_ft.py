@@ -166,6 +166,10 @@ if __name__ == "__main__":
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--model", default=B3_CFG["model"])
     a = ap.parse_args()
+    if a.split == "test":
+        # Final test evaluation (Stage 8 only): unlock explicitly so it is visible in the log.
+        D.TEST_LOCKED = False
+        print("TEST SET UNLOCKED for final evaluation (fixed config, no tuning on test)", flush=True)
     cfg = {**B3_CFG, "model": a.model}
     if a.smoke:
         cfg["epochs"] = 1

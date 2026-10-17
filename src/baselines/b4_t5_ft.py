@@ -89,6 +89,10 @@ if __name__ == "__main__":
     ap.add_argument("--model", default=B4_CFG["model"])
     ap.add_argument("--epochs", type=int, default=B4_CFG["epochs"])
     a = ap.parse_args()
+    if a.split == "test":
+        # Final test evaluation (Stage 8 only): unlock explicitly so it is visible in the log.
+        D.TEST_LOCKED = False
+        print("TEST SET UNLOCKED for final evaluation (fixed config, no tuning on test)", flush=True)
     cfg = {**B4_CFG, "model": a.model, "epochs": 1 if a.smoke else a.epochs}
     s, preds, tt, rows = b4_run(cfg, a.seed, a.split, limit=200 if a.smoke else None,
                              log=lambda x: print(x, flush=True))

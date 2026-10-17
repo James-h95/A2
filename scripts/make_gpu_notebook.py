@@ -3,6 +3,8 @@
   python scripts/make_gpu_notebook.py --run 1   # gpu_runner.ipynb: frozen v1 model, A1-A5, B2, B3-B5
   python scripts/make_gpu_notebook.py --run 2   # gpu_runner_run2.ipynb: ablations on the single-span
                                                 #   main model (v2) + soft-target width experiment
+  python scripts/make_gpu_notebook.py --run 3   # gpu_runner_b3b4_test.ipynb: final TEST evaluation of
+                                                #   B3/B4 (retrained with their fixed config, seed 1)
 """
 import argparse
 import json
@@ -60,7 +62,20 @@ RUNS = {
                  "- soft-target width experiment: soft targets with soft_tau 0.7 and 0.85, 3 seeds each\n"
                  "- (the new main model itself, B2 and the pretrained baselines already exist from run 1)",
             hours="about 45–60 min"),
+    3: dict(out="gpu_runner_b3b4_test.ipynb", zip="a2_b3b4_test_results", jobs=[], baselines=False, keep=(),
+            what="- **final test-set evaluation of B3 (BERTweet) and B4 (t5-small)**: each is fine-tuned with exactly "
+                 "the same fixed settings and seed as its validation run, then scored once on test.csv\n"
+                 "- no main-model training, no tuning on the test set",
+            hours="about 15–20 min", test_cell=True),
 }
+
+TEST_B3B4 = '''# ---------------- final TEST evaluation of the pretrained baselines B3 and B4 ----------------
+# Same fixed configuration and seed as the logged validation runs; scored once on the test set.
+sh([sys.executable, "src/baselines/b3_extractive_ft.py", "--seed", "1", "--split", "test"],
+   log="results/logs/stage8_b3_bertweet_test_s1.log")
+sh([sys.executable, "src/baselines/b4_t5_ft.py", "--seed", "1", "--split", "test"],
+   log="results/logs/stage8_b4_t5small_test_s1.log")
+'''
 STAGE34_JOBS = ([dict(name="main_v1", seed=1, set={})] + [dict(name="sw_base", seed=s, set={}) for s in (2, 3)] +
                 [dict(name=n, seed=1, set=o) for n, o in [("sw_lr5e-4", {"lr": 5e-4}), ("sw_h96", {"hidden": 96}),
                  ("sw_h192", {"hidden": 192}), ("sw_do0.3", {"dropout": 0.3}), ("sw_L10", {"max_span_len": 10}),
@@ -237,7 +252,10 @@ def build(run):
     cells += [nbformat.v4.new_markdown_cell("## Run"), nbformat.v4.new_code_cell(RUN_HELPER),
               nbformat.v4.new_code_cell(main_cell("MAIN_JOBS", "gpu_main" if run == 1 else f"gpu_run{run}", "RUN_MAIN")),
               nbformat.v4.new_code_cell(main_cell("STAGE34_JOBS", "gpu_stage34", "RUN_STAGE34")),
-              nbformat.v4.new_code_cell(BASELINES), nbformat.v4.new_code_cell(SUMMARY), nbformat.v4.new_code_cell(fill(ZIP))]
+              nbformat.v4.new_code_cell(BASELINES)]
+    if R.get("test_cell"):
+        cells.append(nbformat.v4.new_code_cell(TEST_B3B4))
+    cells += [nbformat.v4.new_code_cell(SUMMARY), nbformat.v4.new_code_cell(fill(ZIP))]
     nb = nbformat.v4.new_notebook()
     nb.cells = cells
     nb.metadata = {"kernelspec": {"name": "python3", "display_name": "Python 3"},

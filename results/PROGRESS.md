@@ -174,3 +174,9 @@
 - **Ablations on main model v2 (val ROUGE-L 44.51 ± 0.11):** A1 −char-CNN −0.94, A2 −normaliser&flags −11.68, A3 −self-attention −1.99, A4 −Q2C −1.01, A5 wide soft targets −1.56, B2 all off −14.37. **Every ablation's seed range lies entirely below the main model's** (min main 44.39 > max of each ablation), so every component now shows a measurable contribution. On v1, A4 (Q2C) was within noise.
 - **Soft-target width:** single 44.51 > medium (τ .7) 43.70 > wide (τ .5) 42.95 ≈ narrow (τ .85) 42.90 ± 1.13 (one weak seed, 41.60). ROUGE-L is not monotone in width, but **EM rises steadily as the target narrows**: 23.95 → 26.95 → 27.26 → 27.94. That fits the explanation that wide soft targets blur span boundaries. No soft width beats the single span, which confirms the v2 decision.
 - Note: `results_summary.py` and `RESULTS.md` were missing from the working tree because the team committed them on `main` and then branched `optimisation` from the earlier commit. Restored from `main` (unstaged); branches untouched.
+
+## B3/B4 final test evaluation prepared (2026-10-17)
+
+- The team's final notebook (`submission/CITS4012_5.ipynb` on `origin/branchx`, group 5) has test results for everything except B3/B4. A teammate asked for "B3/B4 checkpoints", but those weights were never saved: the baseline scripts log scores and predictions only. They aren't needed, because B3/B4 retrain deterministically in about 6–7 min each with their fixed configuration.
+- `--split test` in the B3/B4/B5 scripts now explicitly sets `D.TEST_LOCKED = False` and prints a notice. Before this, the scripts raised an error on the test set.
+- `gpu_runner_b3b4_test.ipynb` (`make_gpu_notebook.py --run 3`): smoke test, then B3 and B4 seed 1 trained with their validation-run settings and scored once on test.csv. Logs go to `results/logs/stage8_*`. Dry-run passed locally with no training and no test scores. To be run on Kaggle by the team.

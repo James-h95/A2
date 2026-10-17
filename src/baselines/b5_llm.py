@@ -90,6 +90,10 @@ if __name__ == "__main__":
     ap.add_argument("--model", default=B5_CFG["model"])
     ap.add_argument("--shots", type=int, default=B5_CFG["shots"])
     a = ap.parse_args()
+    if a.split == "test":
+        # Final test evaluation (Stage 8 only): unlock explicitly so it is visible in the log.
+        D.TEST_LOCKED = False
+        print("TEST SET UNLOCKED for final evaluation (fixed config, no tuning on test)", flush=True)
     cfg = {**B5_CFG, "model": a.model, "shots": a.shots}
     s, preds, tt, rows, shots = b5_run(cfg, a.split, limit=32 if a.smoke else None, log=lambda x: print(x, flush=True))
     for r, p in list(zip(rows, preds))[:8]:
