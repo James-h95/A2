@@ -11,8 +11,8 @@
   "support_archive_contains_code": false,
   "source_compatibility": "Strict selected v2 and B2 checkpoint loading, identical synthetic-input start/end logits versus original implementation",
   "google_drive_file_id": "1pgZ2LhtCIdVeV4i0xkLGuHrkbhxGYDNB",
-  "colab_check": "pending",
-  "B3_B4_test_results": "pending",
-  "sha256": "e2bc8b691d833ebe7a06719ee710956cfb88d0bb06dc8262bdcb5f98661464e6",
+  "colab_check": "successful",
+  "B3_B4_test_results": "Not evaluated on test; validation only; no retraining planned",
+  "sha256": "8b26bf2f9b9eee696d52036920ab015ffc90760cd3e5b4ab2cd0df5c13b2712f",
   "google_drive_anonymous_download_verified": true
 }

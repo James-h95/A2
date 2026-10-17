@@ -4,4 +4,4 @@ Implementation is in readable notebook code cells. submission_support.zip contai
 
 No training runs by default. Report-style discussion, exploratory experiments, workflow generators, report inputs, encoded code and duplicated appendix listings were removed.
 
-B3/B4 test evidence is still pending. Google Drive hosting and clean-Colab execution must be checked before submission.
+B3/B4 are validation-only baselines and were not evaluated on test; retraining is not planned. Anonymous Google Drive download has been verified; clean-Colab execution successful 
