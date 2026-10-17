@@ -1,0 +1,18 @@
+{
+  "group": "5",
+  "notebook": "CITS4012_5.ipynb",
+  "cells": 45,
+  "code_cells_with_saved_outputs": 27,
+  "execution": "Passed top-to-bottom in fresh local kernel",
+  "training_performed": false,
+  "model_downloads": false,
+  "fresh_test_prediction": false,
+  "code_location": "Readable notebook code cells; no downloaded implementation",
+  "support_archive_contains_code": false,
+  "source_compatibility": "Strict selected v2 and B2 checkpoint loading, identical synthetic-input start/end logits versus original implementation",
+  "google_drive_file_id": "1pgZ2LhtCIdVeV4i0xkLGuHrkbhxGYDNB",
+  "colab_check": "pending",
+  "B3_B4_test_results": "pending",
+  "sha256": "e2bc8b691d833ebe7a06719ee710956cfb88d0bb06dc8262bdcb5f98661464e6",
+  "google_drive_anonymous_download_verified": true
+}

@@ -1,0 +1,19 @@
+{
+  "group": "5",
+  "filename": "CITS4012_5.ipynb",
+  "cells": 98,
+  "cells_with_outputs": 46,
+  "saved_errors": 0,
+  "execution": "Default notebook executed successfully in a fresh local Python kernel",
+  "training_performed": false,
+  "model_downloads": false,
+  "fresh_test_prediction": false,
+  "verified_metrics": [
+    "rougeL",
+    "em",
+    "f1"
+  ],
+  "colab_check": "pending",
+  "B3_B4_test_evidence": "pending",
+  "sha256": "7e83f05c98d788a2211cbc94745e6c71e71b9fcccab52a83a3efa41c5e7cabd6"
+}
