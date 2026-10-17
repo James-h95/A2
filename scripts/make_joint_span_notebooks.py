@@ -3,8 +3,8 @@ import json
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-TRAIN_OUT=ROOT/"step05a_colab_joint_span_experiment.ipynb"
-REPORT_OUT=ROOT/"step05b_joint_span_results_report.ipynb"
+TRAIN_OUT=ROOT / "notebooks" / "experiments" / "step05a_colab_joint_span_experiment.ipynb"
+REPORT_OUT=ROOT / "notebooks" / "experiments" / "step05b_joint_span_results_report.ipynb"
 FILES=["src/__init__.py","src/evaluate.py","src/data.py","src/runlog.py",
        "src/model.py","src/fasttext_init.py","src/train.py"]
 def md(s):return {"cell_type":"markdown","metadata":{},"source":s.splitlines(True)}

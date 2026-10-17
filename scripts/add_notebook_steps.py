@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 REPORT_STEPS = {
     "step02c_attention_results_report.ipynb": ["Load saved results", "Aggregate attention ablation", "Inspect attention diagnostics", "Review error categories", "Review representative examples", "Write the conclusion"],
-    "boundary_step02c_attention_results_report.ipynb": ["Load the artifact", "Compare boundary objectives", "Inspect boundary diagnostics", "Review paired examples", "Write the conclusion"],
+    "step03b_boundary_attention_results_report.ipynb": ["Load the artifact", "Compare boundary objectives", "Inspect boundary diagnostics", "Review paired examples", "Write the conclusion"],
     "step07b_attention_variants_report.ipynb": ["Load and validate the artifact", "Compare attention variants", "Run paired bootstrap analysis", "Inspect question-type slices", "Write the conclusion"],
     "step05b_joint_span_results_report.ipynb": ["Load the artifact", "Compare component scores", "Estimate component effects", "Check optimisation histories", "Write the conclusion"],
     "step09b_linear_span_reranker_report.ipynb": ["Load and validate the artifact", "Compare reranker metrics", "Run paired bootstrap analysis", "Inspect slices and selected ranks", "Inspect feature effects", "Write the conclusion"],
@@ -57,7 +57,7 @@ def label_report_code_cells(nb, labels):
 
 
 def main():
-    for path in sorted(ROOT.glob("*.ipynb")):
+    for path in sorted((ROOT / "notebooks" / "experiments").glob("*.ipynb")):
         if path.name == "template.ipynb":
             continue
         nb = json.loads(path.read_text(encoding="utf-8"))

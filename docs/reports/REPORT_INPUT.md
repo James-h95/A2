@@ -1,3 +1,5 @@
+> Repository layout note: this document predates the folder reorganisation. Experiment notebook filenames now live under `notebooks/experiments/`, ZIP archive filenames under `artifacts/experiments/`, and submission sources under `submission/`, all relative to the repository root. Paths *inside ZIPs* and Colab/Drive paths are unchanged. See the root README and `docs/REORGANISATION.json` for exact moves.
+
 # TweetQA: Report Background and Experimental Findings
 
 This document explains the dataset, model, experiments, and results. It is background material for the report, rather than the final six-page report. James's original branch ends at commit `fece41c`. The pointer-generator and reranking studies were added later on Kaz's branch. All performance numbers below are validation results, not final test results. Invented examples are explicitly labelled.

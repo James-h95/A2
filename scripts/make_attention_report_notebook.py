@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "step02c_attention_results_report.ipynb"
+OUT = ROOT / "notebooks" / "experiments" / "step02c_attention_results_report.ipynb"
 
 
 def md(source):

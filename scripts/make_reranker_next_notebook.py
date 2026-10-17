@@ -194,7 +194,7 @@ First reproduce the exact Step 10 checkpoint and apply its fixed reranker to the
         cells.append(O.code('%%writefile '+rel+'\n'+(ROOT/rel).read_text(encoding='utf-8')))
     for title,code in [('Load checkpoints and fixed OOF model',LOAD),('1. Exact reproduction and three-seed confirmation',CONFIRM),('2. Probability ensemble',ENSEMBLE),('3. Boundary and confidence features: internal development',FEATURES),('4. Fixed feature comparison on validation',FINAL)]:
         cells.extend([O.md('## '+title),O.code(code)])
-    out=ROOT/'step11_colab_reranker_confirmation_ensemble_features.ipynb'
+    out=ROOT / "notebooks" / "experiments" / 'step11_colab_reranker_confirmation_ensemble_features.ipynb'
     out.write_text(json.dumps(O.notebook(cells,True),ensure_ascii=False,indent=1),encoding='utf-8')
     print(out)
 

@@ -279,5 +279,5 @@ Optional reuse folder: `MyDrive/CITS4012_A2_reranker_oof` with `oof_base_results
 
 '''+intro)]+common+[O.md('## Define unchanged grouped folds'),O.code('from sklearn.model_selection import StratifiedGroupKFold\n'+FOLDS),O.md('## Train or resume fold ensembles'),O.code(TRAIN),O.md('## Fit fixed LambdaMART and evaluate validation'),O.code(FIT),O.md('## Tweet bootstrap and package'),O.code(boot)]
     for name,cells in [('step14_colab_candidate_union_oracle.ipynb',diagnosis),('step15_colab_matched_ensemble_oof.ipynb',training)]:
-        path=O.ROOT/name; path.write_text(json.dumps(O.notebook(cells,True),ensure_ascii=False,indent=1),encoding='utf-8'); print(path)
+        path=O.ROOT/"notebooks"/"experiments"/name; path.write_text(json.dumps(O.notebook(cells,True),ensure_ascii=False,indent=1),encoding='utf-8'); print(path)
 if __name__=='__main__':build()

@@ -1,3 +1,5 @@
+> Repository layout note: this document predates the folder reorganisation. Experiment notebook filenames now live under `notebooks/experiments/`, ZIP archive filenames under `artifacts/experiments/`, and submission sources under `submission/`, all relative to the repository root. Paths *inside ZIPs* and Colab/Drive paths are unchanged. See the root README and `docs/REORGANISATION.json` for exact moves.
+
 # Step 11: OOF confirmation, ensemble, feature study
 
 Open `step11_colab_reranker_confirmation_ensemble_features.ipynb` in Colab and run top to bottom with a GPU runtime.

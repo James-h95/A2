@@ -176,6 +176,6 @@ Every OOF feature comes from the same fold model that generated that candidate. 
     bootstrap=bootstrap.replace('no training and no test evaluation','no base-model training and no test evaluation')
     for title,code in [('Load and verify required fold artifacts',LOAD),('Representation extraction',REP),('Extract fold-safe training and validation features',GENERATE),('Fixed reranker definitions',MATRIX+'\n\n'+'\n\n'.join(funcs)),('Fit and evaluate on unchanged candidates',FIT),('Tweet bootstrap and save',bootstrap)]:
         cells.extend([O.md('## '+title),O.code(code)])
-    path=O.ROOT/'step13_colab_bilstm_representation_reranker.ipynb'
+    path=O.ROOT / "notebooks" / "experiments" / 'step13_colab_bilstm_representation_reranker.ipynb'
     path.write_text(json.dumps(O.notebook(cells,True),ensure_ascii=False,indent=1),encoding='utf-8'); print(path)
 if __name__=='__main__': build()

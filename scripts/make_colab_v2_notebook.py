@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "step01_colab_v2_retrain.ipynb"
+OUT = ROOT / "notebooks" / "experiments" / "step01_colab_v2_retrain.ipynb"
 FILES = [
     "src/__init__.py", "src/evaluate.py", "src/data.py", "src/runlog.py",
     "src/model.py", "src/fasttext_init.py", "src/train.py",

@@ -127,6 +127,6 @@ else:
 """+'\n'.join('    '+line for line in loop.splitlines())+"\n_step12_probability_source=[p.name for _,p in paths[1:]]\n"
     combine="ex=seed_examples['V2-s1']; records=[]"+combine.split("report('Ensemble_base'",1)[0]
     cells.extend([O.md('## Generate ensemble candidates'),O.code(cached+combine),O.md('## Apply saved feature variants'),O.code(feature_code()),O.code(EVAL),O.md('## Compare and save'),O.code(BOOT)])
-    path=O.ROOT/'step12_colab_ensemble_enhanced_reranker.ipynb'
+    path=O.ROOT / "notebooks" / "experiments" / 'step12_colab_ensemble_enhanced_reranker.ipynb'
     path.write_text(json.dumps(O.notebook(cells,True),ensure_ascii=False,indent=1),encoding='utf-8'); print(path)
 if __name__=='__main__': build()

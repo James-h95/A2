@@ -1,3 +1,5 @@
+> Repository layout note: this document predates the folder reorganisation. Experiment notebook filenames now live under `notebooks/experiments/`, ZIP archive filenames under `artifacts/experiments/`, and submission sources under `submission/`, all relative to the repository root. Paths *inside ZIPs* and Colab/Drive paths are unchanged. See the root README and `docs/REORGANISATION.json` for exact moves.
+
 # CITS4012 A2 — TweetQA — Execution plan for Claude Code
 
 Spec: `../CITS4012_A2_2026.pdf` (wins on any conflict). Team plan doc (Claude Docs): "CITS4012 Group Project Plan — TweetQA".

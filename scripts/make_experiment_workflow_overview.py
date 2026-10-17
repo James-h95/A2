@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "step00_experiment_workflow_overview.ipynb"
+OUT = ROOT / "notebooks" / "experiments" / "step00_experiment_workflow_overview.ipynb"
 
 
 def md(text):
@@ -51,7 +51,7 @@ A start-conditioned end head did not improve the result. This rejected the simpl
 
 Run notebook: `step03a_colab_boundary_attention_experiment.ipynb`.
 
-Report notebook: `boundary_step02c_attention_results_report.ipynb`.
+Report notebook: `step03b_boundary_attention_results_report.ipynb`.
 """),
 md("""## Step 5 — Test generation for non-extractive answers
 
@@ -125,7 +125,7 @@ md("""## Step 12 — Notebook execution map
 |---:|---|---|---|
 | 1 | `step01_colab_v2_retrain.ipynb` | — | Establish the three-seed single-span baseline |
 | 2 | `step02a_colab_attention_analysis.ipynb` | `step02c_attention_results_report.ipynb` | Confirm the value of self-attention |
-| 3 | `step03a_colab_boundary_attention_experiment.ipynb` | `boundary_step02c_attention_results_report.ipynb` | Test boundary-conditioned output |
+| 3 | `step03a_colab_boundary_attention_experiment.ipynb` | `step03b_boundary_attention_results_report.ipynb` | Test boundary-conditioned output |
 | 4 | `step04a_colab_pointer_generator_experiment.ipynb` | `step04b_pointer_generator_results_report.ipynb` | Test generation for non-extractive answers |
 | 5 | `step05a_colab_joint_span_experiment.ipynb` | `step05b_joint_span_results_report.ipynb` | Isolate output-objective components |
 | 6 | `step06a_colab_quality_weight_3seed.ipynb` | `step06b_quality_weight_3seed_report.ipynb` | Confirm quality weighting over three seeds |

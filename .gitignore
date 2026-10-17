@@ -26,3 +26,12 @@ A2_gpu/
 .vscode/
 .idea/
 .claude/settings.local.json
+
+# Preserve the existing tracked experiment artifacts after the folder reorganisation.
+!/artifacts/
+!/artifacts/experiments/
+!/artifacts/experiments/*.zip
+!/checkpoints/
+/checkpoints/*
+!/checkpoints/boundary/
+!/checkpoints/boundary/*.pt

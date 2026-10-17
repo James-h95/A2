@@ -1,4 +1,4 @@
-"""Assemble the single submission notebook from template.ipynb and the src/ modules.
+"""Assemble the single submission notebook from submission/template.ipynb and the src/ modules.
 
   python build_notebook.py --group GROUPID --hf-repo <user>/<repo> [--execute]
 
@@ -45,7 +45,7 @@ def code(text):
 
 
 def build(group, hf_repo):
-    tpl = nbformat.read(ROOT / "template.ipynb", as_version=4)
+    tpl = nbformat.read(ROOT / "submission" / "template.ipynb", as_version=4)
     heads = {"title": None, "readme": None, "s1": None, "s2": None, "s3": None}
     for c in tpl.cells:
         src = "".join(c.source)
@@ -61,7 +61,7 @@ def build(group, hf_repo):
             heads["s3"] = c
     assert all(heads.values()), "template headings changed"
 
-    ns = runpy.run_path(str(ROOT / "notebook_parts" / "cells.py"))
+    ns = runpy.run_path(str(ROOT / "submission" / "notebook_parts" / "cells.py"))
     readme = ns["README"].replace("{HF_REPO}", hf_repo).replace("{GROUP}", group)
     parts = ns["PARTS"]
 
@@ -98,7 +98,7 @@ if __name__ == "__main__":
     ap.add_argument("--timeout", type=int, default=7200)
     a = ap.parse_args()
     nb = build(a.group, a.hf_repo)
-    out = ROOT / f"CITS4012_{a.group}.ipynb"
+    out = ROOT / "submission" / f"CITS4012_{a.group}.ipynb"
     nbformat.write(nb, out)
     print("wrote", out, len(nb.cells), "cells")
     if a.execute:

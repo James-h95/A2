@@ -245,7 +245,7 @@ def build(run):
                    "kaggle": {"accelerator": "nvidiaTeslaT4", "isInternetEnabled": True, "isGpuEnabled": True}}
     for c in cells:
         assert not re.search(r"@[A-Z]+@", c.source), "unfilled placeholder"
-    out = ROOT / R["out"]
+    out = ROOT / "notebooks" / "experiments" / R["out"]
     nbformat.write(nb, out)
     print("wrote", out, len(cells), "cells")
 
